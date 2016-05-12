@@ -2,7 +2,7 @@
  * A complete list of a user's (scope's) apps.
  */
 import * as React from 'react';
-import { connect } from 'react-redux';
+import { connect, ElementClass } from 'react-redux';
 import * as _ from 'lodash';
 
 import LtiStorefront from './LtiStorefront.tsx';
@@ -21,11 +21,13 @@ class LtiStorefrontContainer extends React.Component<any, any> {
   }
 }
 
-export default connect(
+const connector = connect(
   state => ({
     appStore: state.appStore,
     lti: state.lti,
     env: state.env
   }),
   dispatch => ({ dispatch })
-)(LtiStorefrontContainer);
+);
+
+export default connector(LtiStorefrontContainer);
