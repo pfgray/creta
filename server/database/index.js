@@ -1,6 +1,8 @@
 var MongoClient = require('mongodb').MongoClient;
 var Q = require('q');
 
+var couchSetup = require('./couchdb');
+
 module.exports = {
   init: function(config){
     //todo: use config...
@@ -8,6 +10,8 @@ module.exports = {
     var host = 'localhost';
     var port = 27017
     this.url = 'mongodb://' + host + ':' + port + '/' + db_name;
+
+    couchSetup.init(config);
   },
   getDatabase:function(){
     var db_name = 'casa';
@@ -29,5 +33,8 @@ module.exports = {
         }
         throw err;
       });
+  },
+  getCouchDataBase: function(){
+    return couchSetup.getDatabase();
   }
 };

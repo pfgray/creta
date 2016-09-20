@@ -20,6 +20,7 @@
     "connect-livereload": "^0.5.4",
     "cookie-parser": "~1.0.1",
     "cors": "^2.5.3",
+    "cradle": "^0.7.1",
     "ejs": "^2.3.4",
     "errorhandler": "~1.0.0",
     "es5-shim": "~3.0.1",
