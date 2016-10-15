@@ -1,8 +1,9 @@
 'use strict';
 
-var _ = require('lodash'); 
+var _ = require('lodash');
 var Q = require('q');
 var model = require('../../database');
+var couchModel = require('../../database/couchdb');
 var keyGenerator = require('../key/key.generator.js');
 
 var collection = 'users';
@@ -29,20 +30,28 @@ module.exports = {
           });
         });
     },
-    getUserByEmail: function(db, email){
-      console.log('finding user...');
-      return Q.ninvoke(db.collection(collection), 'findOne', {
-        email: email
-      }).then(function(user){
-        console.log('okay, we found: ', user);
-        return user;
-      });
+    getUserByEmail: function(email){
+      console.log('finding user...', email);
+      var db = couchModel.getDatabase();
+      return Q.ninvoke(db, 'view', 'casa/usersByEmail', email)
+        .then(function(users){
+          if(users.length > 0){
+            return users[0].value;
+          } else {
+            return null;
+          }
+        }, function(err){
+          console.log('ERR:', err);
+        }).catch(err => console.log('errroro: ', err));
     },
-    createUser: function(db, user){
-      return Q.ninvoke(db.collection(collection), 'insert', user)
+    createUser: function(user){
+      var db = couchModel.getDatabase();
+      return Q.ninvoke(db, 'save', _.merge(user, {type:'user'}))
         .then(function(result){
-          console.log('got back: ', result);
-          return result.ops[0];
+          console.log('created user: ', result);
+          return _.merge(user, {
+            _id: result.id
+          });
         });
     }
 };

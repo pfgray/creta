@@ -81,17 +81,17 @@ module.exports = {
             }
           }
       },
+      usersByEmail: {
+          map: function(doc) {
+            if(doc.type != null && doc.type === 'user'){
+              emit(doc.email, doc);
+            }
+          }
+      },
       users: {
           map: function(doc){
             if(doc.type != null && doc.type === 'user'){
               emit(doc._id, doc);
-            }
-          }
-      },
-      usersByGoogleId: {
-          map: function(doc){
-            if(doc.type != null && doc.type === 'user' && doc.googleId !== null){
-              emit(doc.googleId, doc);
             }
           }
       },
