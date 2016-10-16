@@ -39,6 +39,7 @@ module.exports = function(app, config){
     //does there already exist a user with this email?
     userModel.getUserByEmail(req.body.email)
     .then(function(user){
+      console.log('found uesr:', user);
       if(user === null){
         console.log('making user...');
 

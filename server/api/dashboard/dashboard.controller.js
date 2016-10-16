@@ -18,7 +18,7 @@ exports.index = function(req, res) {
     var db = req.casa.db;
     var user = req.user._id;
     appsModel.getApplicationsForUser(db, user).then(function(apps){
-      peersModel.getPeersByUser(db, user).then(function(peers){
+      peersModel.getPeersByUser(user).then(function(peers){
         storefrontModel.getStorefrontsByUser(db, user).then(function(storefronts){
           var ids = storefronts.map(function(s) { return s._id });
           launchesModel.getTotalLaunchesForStorefronts(db, ids).then(function(launchCounts){
