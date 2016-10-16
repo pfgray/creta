@@ -112,6 +112,20 @@ module.exports = {
               return values.length;
             }
           }
+      },
+      storefrontsByUserId: {
+        map: function(doc){
+          if(doc.type != null && doc.type == 'storefront'){
+            emit(doc.userId, doc);
+          }
+        }
+      },
+      storefronts: {
+        map: function(doc){
+          if(doc.type != null && doc.type == 'storefront'){
+            emit(doc._id, doc);
+          }
+        }
       }
    }
 };

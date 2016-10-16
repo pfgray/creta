@@ -19,7 +19,7 @@ exports.index = function(req, res) {
     var user = req.user._id;
     appsModel.getApplicationsForUser(db, user).then(function(apps){
       peersModel.getPeersByUser(user).then(function(peers){
-        storefrontModel.getStorefrontsByUser(db, user).then(function(storefronts){
+        storefrontModel.getStorefrontsByUser(user).then(function(storefronts){
           var ids = storefronts.map(function(s) { return s._id });
           launchesModel.getTotalLaunchesForStorefronts(db, ids).then(function(launchCounts){
             storefronts.map(function(store){

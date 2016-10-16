@@ -1,41 +1,35 @@
 var _ = require('lodash');
 
 var Q = require('q');
-var mongodb = require('mongodb');
-var model = require('../../database');
+var model = require('../../database/couchdb');
 var randomstring = require("randomstring");
-
-var collection = 'storefront';
 
 module.exports = {
     getStorefront:function(db, storefrontId){
-      return Q.ninvoke(db.collection(collection), 'findOne', {
-        _id: new mongodb.ObjectID(storefrontId)
-      });
+      var db = model.getDatabase();
+      return Q.ninvoke(db, 'view', 'casa/storefronts');
     },
-    getStorefrontsByUser:function(db, userId){
-      return Q.ninvoke(db.collection(collection).find({
-        userId: userId
-      }), 'toArray');
+    getStorefrontsByUser:function(userId){
+      var db = model.getDatabase();
+      return Q.ninvoke(db, 'view', 'casa/storefrontsByUserId', {
+        key: userId
+      });
     },
     updateStorefront:function(db, storefront){
       console.log("saving storefront:", storefront);
       return Q.ninvoke(db.collection(collection), 'save', storefront);
     },
-    createStorefront:function(db, storefront){
+    createStorefront:function(storefront){
+      var db = model.getDatabase();
       // initiate this storefront with one keypair
       storefront.keypairs = [{
         key: randomstring.generate(),
         secret: randomstring.generate()
       }];
-      return Q.ninvoke(db.collection(collection), 'insert', storefront)
-        .then(function(result){
-          return result.ops[0];
-        });
+      return Q.ninvoke(db, 'save', storefront);
     },
-    deletePeer:function(db, id){
-      return Q.ninvoke(db.collection(collection), 'remove', {
-        _id: new mongodb.ObjectID(id)
-      });
+    deletePeer:function(id, rev){
+      var db = model.getDatabase();
+      return Q.ninvoke(db, 'remove', id, rev);
     }
 }
