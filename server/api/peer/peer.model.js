@@ -1,28 +1,25 @@
 var _ = require('lodash');
 
 var Q = require('q');
-var mongodb = require('mongodb');
-var model = require('../../database');
-var couchModel = require('../../database/couchdb');
-var collection = 'peers';
+var model = require('../../database/couchdb');
 
 module.exports = {
-    getPeer:function(db, peerId){
-      return Q.ninvoke(db.collection(collection), 'findOne', {
-        _id: new mongodb.ObjectID(peerId)
-      });
+    getPeer:function(peerId){
+      var db = model.getDatabase();
+      return Q.ninvoke(db, 'view', 'casa/peersByUser', {key: peerId});
     },
     getPeersByUser:function(userId){
-      var db = couchModel.getDatabase();
-      return Q.ninvoke(db, 'view', 'casa/peersByUser', userId)
+      var db = model.getDatabase();
+      return Q.ninvoke(db, 'view', 'casa/peersByUser', {key: userId})
         .then(peers => peers.map(p => p));
     },
     updatePeer:function(db, peer){
       console.log("saving peer:", peer);
-      return Q.ninvoke(db.collection(collection), 'save', peer);
+      var db = model.getDatabase();
+      return Q.ninvoke(db, 'save', peer._id, peer._rev, _.merge(peer, {type:'peer'}));
     },
     createPeer: function(peer){
-      var db = couchModel.getDatabase();
+      var db = model.getDatabase();
       return Q.ninvoke(db, 'save', _.merge(peer, {type:'peer'}))
         .then(function(result){
           console.log('created peer: ', result);
@@ -31,9 +28,8 @@ module.exports = {
           });
         });
     },
-    deletePeer:function(db, id){
-      return Q.ninvoke(db.collection(collection), 'remove', {
-        _id: new mongodb.ObjectID(id)
-      });
+    deletePeer:function(id){
+      var db = model.getDatabase();
+      return Q.ninvoke(db, 'remove', id, rev);
     }
 }
