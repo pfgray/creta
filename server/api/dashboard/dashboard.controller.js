@@ -6,6 +6,8 @@ var peersModel = require('../peer/peer.model');
 var storefrontModel = require('../storefronts/storefront.model.js');
 var launchesModel = require('../../storefronts/launches/launches.model.js');
 
+var rethrow = err => throw err;
+
 // Get the dashboard
 exports.index = function(req, res) {
     if(!req.user){
@@ -33,9 +35,9 @@ exports.index = function(req, res) {
               peers: peers,
               storefronts: storefronts
             });
-          }, function(err){ throw err; });
-        }, function(err){ throw err; });
-      }, function(err){ throw err; });
+          }, rethrow);
+        }, rethrow);
+      }, rethrow);
     })
     .catch(function(err){
       console.log('error getting apps: ', err);
