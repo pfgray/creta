@@ -1,12 +1,13 @@
 'use strict';
 
 var _ = require('lodash');
+var Q = require('q');
 var appsModel = require('../application/application.model');
 var peersModel = require('../peer/peer.model');
 var storefrontModel = require('../storefronts/storefront.model.js');
 var launchesModel = require('../../storefronts/launches/launches.model.js');
 
-var rethrow = err => throw err;
+var rethrow = err => {throw err};
 
 // Get the dashboard
 exports.index = function(req, res) {
@@ -19,31 +20,40 @@ exports.index = function(req, res) {
     }
     var db = req.casa.db;
     var user = req.user._id;
-    appsModel.getApplicationsForUser(db, user).then(function(apps){
-      peersModel.getPeersByUser(user).then(function(peers){
-        storefrontModel.getStorefrontsByUser(user).then(function(storefronts){
-          var ids = storefronts.map(function(s) { return s._id });
-          launchesModel.getTotalLaunchesForStorefronts(db, ids).then(function(launchCounts){
-            storefronts.map(function(store){
+
+    Q.all([
+      appsModel.getApplicationsForUser(user),
+      peersModel.getPeersByUser(user),
+      storefrontModel.getStorefrontsByUser(user)
+    ])
+      .then(([apps, peers, storefronts]) => {
+        console.log("Resolved all promises:");
+        console.log("  apps:", apps);
+        console.log("  peers:", peers);
+        console.log("  storefronts:", storefronts);
+
+        const ids = storefronts.map(s => s._id);
+        return launchesModel.getTotalLaunchesForStorefronts(db, ids)
+          .then(launchCounts => {
+            console.log('GOT apps: ', apps);
+            storefronts.map((store) => {
               var foundStore = _.find(launchCounts, function(launch) {
                 return launch._id === store._id.toString();
               });
               store.launchCount = foundStore ? foundStore.count : 0;
             });
             res.status(200).json({
-              apps: apps,
-              peers: peers,
-              storefronts: storefronts
+              apps,
+              peers,
+              storefronts
             });
-          }, rethrow);
-        }, rethrow);
-      }, rethrow);
-    })
-    .catch(function(err){
-      console.log('error getting apps: ', err);
-      res.status(500).json({
-          status:'error',
-          message:err
+          });
+      }, rethrow)
+      .catch(function(err){
+        console.log('error getting apps: ', err);
+        res.status(500).json({
+            status: 'error',
+            message: err
+        });
       });
-    });
 };

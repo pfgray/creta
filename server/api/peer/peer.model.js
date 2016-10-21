@@ -6,7 +6,7 @@ var model = require('../../database/couchdb');
 module.exports = {
     getPeer:function(peerId){
       var db = model.getDatabase();
-      return Q.ninvoke(db, 'view', 'casa/peersByUser', {key: peerId});
+      return Q.ninvoke(db, 'view', 'casa/peersById', {key: peerId});
     },
     getPeersByUser:function(userId){
       var db = model.getDatabase();

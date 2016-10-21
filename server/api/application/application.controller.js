@@ -11,7 +11,7 @@ exports.index = function(req, res) {
       }, 403);
       return;
     }
-    model.getApplicationsForUser(req.casa.db, req.user._id).then(function(apps){
+    model.getApplicationsForUser(req.user._id).then(function(apps){
       res.json(apps);
     }, function(err){
       console.log('error getting apps: ', err);

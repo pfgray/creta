@@ -11,9 +11,11 @@ module.exports = {
     },
     getStorefrontsByUser:function(userId){
       var db = model.getDatabase();
-      return Q.ninvoke(db, 'view', 'casa/storefrontsByUserId', {
+      const storefronts = Q.ninvoke(db, 'view', 'casa/storefrontsByUserId', {
         key: userId
       });
+      console.log('Got storefrons: ', storefronts);
+      return storefronts;
     },
     updateStorefront:function(db, storefront){
       console.log("saving storefront:", storefront);

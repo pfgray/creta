@@ -2,28 +2,30 @@
 
 var _ = require('lodash');
 var Q = require('q');
-var model = require('../../database');
+var model = require('../../database/couchdb');
 
 var storefrontModel = require('../storefronts/storefront.model');
+var peerModel = require('../peer/peer.model');
 
 var appModel = {
-    getApplicationsForUser: function(db, userId){
-      console.log('getting apps for user...');
-      return Q.ninvoke(db.collection('peers').find({
-        userId: userId
-      }), 'toArray')
+    getApplicationsForUser: function(userId){
+      console.log('getting apps for user...', userId);
+      return peerModel.getPeersByUser(userId)
       .then(function(peers){
-        return _(peers).map(function(peer){
+        console.log('got peers for user...', userId, peers);
+        var result = _(peers).map(function(peer){
           return peer.apps || [];
         }).flatten().value();
+        console.log('mapped apps for user:', result)
+        return result;
       });
     },
-    getApplicationsForStorefront: function(db, storefrontId){
+    getApplicationsForStorefront: function(storefrontId){
       return storefrontModel.getStorefront(db, storefrontId)
-      .then(function(storefront){
+      .then(storefront => {
         console.log('getting apps... for storefront');
-        return appModel.getApplicationsForUser(db, storefront.userId)
-      }.bind(this));
+        return appModel.getApplicationsForUser(storefront.userId)
+      });
     }
 }
 

@@ -5,12 +5,14 @@ var userModel = require('../../api/user/user.model.js');
 
 var google = require('./google.js');
 var email = require('./email.js');
+var store = require('./sessions.js');
 
 module.exports.init = function(app, config){
     app.use(session({
         secret: 'keyboard cat',
         resave: false,
-        saveUninitialized: true
+        saveUninitialized: true,
+        store
     }));
     app.use(passport.initialize());
     app.use(passport.session());

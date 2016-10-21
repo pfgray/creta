@@ -12,9 +12,11 @@ var transporter = nodemailer.createTransport(
   })
 );
 
+/*
 Q.ninvoke(transporter, 'verify')
 .then(() => console.log('SMTP Configured successfully'))
 .catch(err => console.log('SMTP Configuration error: ', err));
+*/
 
 module.exports = {
   sendEmail: function(emailAddress, body){

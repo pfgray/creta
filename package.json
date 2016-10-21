@@ -17,6 +17,7 @@
     "classnames": "^2.2.3",
     "composable-middleware": "^0.3.0",
     "compression": "~1.0.1",
+    "connect-couchdb": "^1.0.0",
     "connect-livereload": "^0.5.4",
     "cookie-parser": "~1.0.1",
     "cors": "^2.5.3",
@@ -74,7 +75,8 @@
     "babel-preset-stage-1": "^6.3.13",
     "css-loader": "^0.23.1",
     "file-loader": "^0.8.5",
-    "gulp": "^3.9.0",
+    "gulp": "^3.9.1",
+    "gulp-cli": "^1.2.2",
     "gulp-util": "^3.0.7",
     "gulp-webpack": "^1.5.0",
     "jade-loader": "^0.8.0",
@@ -93,7 +95,7 @@
     "node": ">=0.10.0"
   },
   "scripts": {
-    "start": "gulp serve",
+    "start": "node ./node_modules/.bin/gulp serve",
     "build": "gulp build",
     "test": "exit 1"
   },
