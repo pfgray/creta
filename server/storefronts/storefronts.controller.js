@@ -38,7 +38,7 @@ exports.lti = function(req, res) {
       throw new Error("Couldn't find key: <" + req.body.oauth_consumer_key + "> for storefront: <" + req.params.storefront + ">");
     }
   })
-  .then(function(info){
+  .then(function(info) {
     var provider = new lti.Provider(info.keypair.key, info.keypair.secret, lti.MemoryStore, lti.HMAC_SHA1);
     provider.valid_request(req, function(err, isValid){
       if(!isValid){

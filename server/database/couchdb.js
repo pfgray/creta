@@ -41,7 +41,7 @@ module.exports = {
       }
     });
   },
-  getDatabase:function(){
+  getDatabase: function(){
     var c =  new(cradle.Connection)(couch.host, couch.port, {
         cache: true,
         raw: false,

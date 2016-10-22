@@ -33,12 +33,11 @@ exports.index = function(req, res) {
         console.log("  storefronts:", storefronts);
 
         const ids = storefronts.map(s => s._id);
-        return launchesModel.getTotalLaunchesForStorefronts(db, ids)
+        return launchesModel.getTotalLaunchesForStorefronts(ids)
           .then(launchCounts => {
-            console.log('GOT apps: ', apps);
-            storefronts.map((store) => {
+            storefronts.map(store => {
               var foundStore = _.find(launchCounts, function(launch) {
-                return launch._id === store._id.toString();
+                return launch._id === store._id;
               });
               store.launchCount = foundStore ? foundStore.count : 0;
             });

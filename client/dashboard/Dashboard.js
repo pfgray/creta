@@ -58,7 +58,7 @@ class Dashboard extends React.Component {
         </Row>
         <Row>
           <Col lg={12}>
-            <Dashbox title='Stores' link='/storefronts'>
+            <Dashbox title='Storefronts' link='/storefronts'>
               <StorefrontList storefronts={this.props.storefronts}/>
             </Dashbox>
           </Col>

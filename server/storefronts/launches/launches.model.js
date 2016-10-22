@@ -2,32 +2,26 @@
 
 var _ = require('lodash');
 var Q = require('q');
-var model = require('../../database');
+var model = require('../../database/couchdb');
 var collection = 'storefrontLaunches';
-var ObjectId = require('mongodb').ObjectId;
+
+var db = model.getDatabase();
 
 module.exports = {
-  createStorefrontLaunch:function(db, storefrontId, launchParameters){
+  createStorefrontLaunch: function(storefrontId, launchParameters){
     var storefrontLaunch = {
+      type:'storefrontLaunch',
       storefrontId: storefrontId,
       launchParameters: launchParameters,
-      date: new Date()
+      timestamp: new Date()
     };
-    return Q.ninvoke(db.collection(collection), 'insert', storefrontLaunch)
+    return Q.ninvoke(db, 'save', storefrontLaunch)
       .then(function(result){
         return result.ops[0];
       });
   },
-  getTotalLaunchesForStorefronts: function(db, storefrontIds){
-    var ids = storefrontIds.map(function(id){
-      return id.toString();
-    });
-    return Q.ninvoke(db.collection(collection), 'aggregate', [
-      { "$match": { "storefrontId": { "$in": ids } } },
-      { "$group": { "_id": "$storefrontId", "count": { "$sum": 1 }}}
-    ]).then(function(res){
-      console.log('got:', arguments);
-      return res;
-    });
+  getTotalLaunchesForStorefronts: function(storefrontIds){
+    return Q.ninvoke(db, 'view', 'casa/launchesByStorefront', {keys: storefrontIds, group: true, reduce: true})
+      .then(peers => peers.map(p => p));
   }
 }

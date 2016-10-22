@@ -12,7 +12,7 @@ module.exports = {
               }
             }
           },
-          reduce: function(keys, values) {
+          reduce: function(key, values) {
             var latest = 0;
             var latest_index = 0;
             for(var i=0; i<values.length; i++){
@@ -105,7 +105,7 @@ module.exports = {
               }
             }
           },
-          reduce: function(keys, values, rereduce) {
+          reduce: function(key, values, rereduce) {
             if (rereduce) {
               return sum(values);
             } else {
@@ -124,6 +124,20 @@ module.exports = {
         map: function(doc){
           if(doc.type != null && doc.type == 'storefront'){
             emit(doc._id, doc);
+          }
+        }
+      },
+      launchesByStorefront: {
+        map: function(doc){
+          if(doc.type != null && doc.type == 'storefront'){
+            emit(doc._id, doc);
+          }
+        },
+        reduce: function(keys, values, rereduce) {
+          if (rereduce) {
+            return sum(values);
+          } else {
+            return values.length;
           }
         }
       }

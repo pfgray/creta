@@ -9,7 +9,7 @@ export default ({storefronts}) => {
   return storefronts.length < 1 ? (
     <div className="row">
       <div className="info-box col-sm-6 col-sm-offset-3">
-        <h1>You don't have any stores yet.</h1>
+        <h1>You don't have any storefronts yet.</h1>
         <NewStorefrontButton />
       </div>
     </div>
