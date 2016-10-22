@@ -10,8 +10,8 @@ module.exports = {
     },
     getPeersByUser:function(userId){
       var db = model.getDatabase();
-      return Q.ninvoke(db, 'view', 'casa/peersByUser', {key: userId})
-        .then(peers => peers.map(p => p));
+      console.log('Getting peers for user', userId);
+      return Q.ninvoke(db, 'view', 'casa/peersByUser', {key: userId});
     },
     updatePeer:function(db, peer){
       console.log("saving peer:", peer);

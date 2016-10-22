@@ -7,8 +7,9 @@ var model = require('./peer.model');
 exports.index = function(req, res) {
     console.log("Getting peers with user: ", req.user._id);
 
-    model.getPeersByUser(req.casa.db, req.user._id)
+    model.getPeersByUser(req.user._id)
     .then(function(peers){
+      console.log('Got peers: ', peers);
       res.json(peers);
     }, function(err){
       console.log('error getting peers: ', err);
