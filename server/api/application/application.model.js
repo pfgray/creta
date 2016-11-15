@@ -12,11 +12,9 @@ var appModel = {
       console.log('getting apps for user...', userId);
       return peerModel.getPeersByUser(userId)
       .then(function(peers){
-        console.log('got peers for user...', userId, peers);
         var result = _(peers).map(function(peer){
           return peer.apps || [];
         }).flatten().value();
-        console.log('mapped apps for user:', result)
         return result;
       });
     },

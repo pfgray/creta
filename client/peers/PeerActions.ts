@@ -118,6 +118,7 @@ export function syncPeer(id: string): (d: any) => void {
 }
 
 export function confirmDeletePeer(peerId: string): ConfirmDeletePeerAction {
+  console.log('gbuilding confirm detele peer: ', peerId);
   return { type: 'ConfirmDeletePeerAction', peerId };
 }
 

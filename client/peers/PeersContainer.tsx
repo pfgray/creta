@@ -9,8 +9,8 @@ import * as _ from 'lodash';
 import { fetchPeers, syncPeer,
   deletePeer, confirmDeletePeer,
   cancelConfirmDeletePeer
-} from './PeerActions.ts';
-import Peers from './Peers.tsx';
+} from './PeerActions';
+import Peers from './Peers';
 
 class PeersContainer extends React.Component<any, any> {
   constructor(props){
