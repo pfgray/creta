@@ -8,11 +8,11 @@ import { NewPeerButton } from '../peers/Peers';
 export default ({peers}) => {
   return peers.length < 1 ? (
     <div className="row">
-    <div className="info-box col-sm-6 col-sm-offset-3">
-      <h1>You don't have any repositories yet.</h1>
-      <NewPeerButton />
+      <div className="info-box col-sm-6 col-sm-offset-3">
+        <h1>You don't have any repositories yet.</h1>
+        <NewPeerButton />
+      </div>
     </div>
-  </div>
   ) : (
     <div className="app-list">
       <table className='info-table'>

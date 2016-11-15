@@ -20,12 +20,13 @@ import EditPeer from './peers/edit/EditPeerFormWrapper';
 import Storefronts from './storefronts/StorefrontsContainer';
 import EditStorefront from './storefronts/edit/EditStorefrontFormWrapper.js';
 import LtiStorefront from './lti/LtiStorefrontContainer';
+import createLogger from 'redux-logger';
 
 const browserHistory = createBrowserHistory();
 const reduxRouterMiddleware = syncHistory(browserHistory);
+const logger = createLogger();
 const finalCreateStore = compose(
-    applyMiddleware(thunk),
-    applyMiddleware(reduxRouterMiddleware),
+    applyMiddleware(thunk, reduxRouterMiddleware, logger),
     window.devToolsExtension ? window.devToolsExtension() : f => f
 )(createStore);
 const store = finalCreateStore(reducer);

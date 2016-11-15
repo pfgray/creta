@@ -1,17 +1,6 @@
-import { typeName, isType, Action } from '../common/redux-extras.ts';
-import {
-  FetchPeersAction,
-  ReceivePeersAction,
-  CreatePeerAction,
-  EditPeerAction,
-  SyncPeerAction,
-  EndSyncPeerAction,
-  ConfirmDeletePeerAction,
-  DeletePeerAction,
-  EndDeletePeerAction,
-  CancelConfirmDeletePeerAction
-} from './PeerActions.ts';
-import Peer from './Peer.ts';
+import { Action } from 'redux';
+import { PeerAction } from './PeerActions';
+import Peer from './Peer';
 
 interface PeerState {
   loading: boolean
@@ -25,53 +14,59 @@ const initialState: PeerState = {
   confirmingDeletePeer: null
 };
 
-export default function(state: PeerState = initialState, action: Action): PeerState {
-  if(isType(action, ReceivePeersAction)){
+export default function(state: PeerState = initialState, a: PeerAction): PeerState {
+switch(a.type){
+  case 'ReceivePeersAction':
     return Object.assign({}, state, {
       loading: false,
-      peers: action.peers
+      peers: a.peers
     });
-  } else if (isType(action, FetchPeersAction)){
+
+  case 'FetchPeersAction':
     return Object.assign({}, state, {
-      loading: true,
-      peers: state.peers
+      loading: true
     });
-  } else if (isType(action, SyncPeerAction)){
+
+  case 'SyncPeerAction':
     return Object.assign({}, state, {
-      peers: mergeToPeerWithId(action.id, state.peers, {
+      peers: mergeToPeerWithId(a.id, state.peers, {
         syncing: true
       })
     });
-  } else if (isType(action, EndSyncPeerAction)){
+
+  case 'EndSyncPeerAction':
     return Object.assign({}, state, {
-      peers: mergeToPeerWithId(action.id, state.peers, {
+      peers: mergeToPeerWithId(a.id, state.peers, {
         syncing: false
       })
     });
-  } else if (isType(action, ConfirmDeletePeerAction)){
+
+  case 'ConfirmDeletePeerAction':
     return Object.assign({}, state, {
-      confirmingDeletePeer: action.peerId
+      confirmingDeletePeer: a.peerId
     });
-  } else if (isType(action, CancelConfirmDeletePeerAction)){
-    console.log('yeah?')
+
+  case 'CancelConfirmDeletePeerAction':
     return Object.assign({}, state, {
       confirmingDeletePeer: null
     });
-  } else if (isType(action, DeletePeerAction)){
+
+  case 'DeletePeerAction':
     return Object.assign({}, state, {
-      peers: mergeToPeerWithId(action.peerId, state.peers, {
+      peers: mergeToPeerWithId(a.peerId, state.peers, {
         deleting: true
       })
     });
-  } else if (isType(action, EndDeletePeerAction)){
+
+  case 'EndDeletePeerAction':
     return Object.assign({}, state, {
-      peers: state.peers.filter((peer:any) => peer._id !== action.peerId),
+      peers: state.peers.filter((peer:any) => peer._id !== a.peerId),
       confirmingDeletePeer: null
     });
-  }  else {
+
+  default:
     return state;
-  }
-}
+}}
 
 const mergeToPeerWithId = (id: string, peers: any[], data: any) => {
   return peers.map(peer => peer._id === id ? Object.assign({}, peer, data) : peer);

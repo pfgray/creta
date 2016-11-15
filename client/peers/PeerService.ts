@@ -1,8 +1,7 @@
 import * as request from 'superagent';
 import * as Q from 'q';
 
-import Peer from './Peer.ts';
-
+import Peer from './Peer';
 
 function requestToPromise<T>(req: request.SuperAgentRequest): Q.Promise<T> {
   var deferred = Q.defer<T>();

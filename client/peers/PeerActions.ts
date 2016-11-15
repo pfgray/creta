@@ -1,75 +1,83 @@
 import { routeActions } from 'react-router-redux';
-import PeerService from './PeerService.ts';
-import Peer from './Peer.ts';
-import { typeName, isType, Action } from '../common/redux-extras.ts';
+import PeerService from './PeerService';
+import Peer from './Peer';
+import { Action } from 'redux';
 
 const peerService = new PeerService();
 
-@typeName("FetchPeersAction")
-export class FetchPeersAction extends Action {}
-@typeName("ReceivePeersAction")
-export class ReceivePeersAction extends Action {
-  constructor(public peers: Peer[]){
-    super();
-  }
-}
-@typeName("CreatePeerAction")
-export class CreatePeerAction extends Action {}
-@typeName("EditPeerAction")
-export class EditPeerAction extends Action {}
-@typeName("SyncPeerAction")
-export class SyncPeerAction extends Action {
-  constructor(public id: string){
-    super();
-  }
-}
-@typeName("EndSyncPeerAction")
-export class EndSyncPeerAction extends Action {
-  constructor(public id: string){
-    super();
-  }
-}
-@typeName("ConfirmDeletePeerAction")
-export class ConfirmDeletePeerAction extends Action {
-  constructor(public peerId: string){
-    super();
-  }
-}
-@typeName("CancelConfirmDeletePeerAction")
-export class CancelConfirmDeletePeerAction extends Action {
-  constructor(){
-    super();
-  }
-}
-@typeName("DeletePeerAction")
-export class DeletePeerAction extends Action {
-  constructor(public peerId: string){
-    super();
-  }
-}
-@typeName("EndDeletePeerAction")
-export class EndDeletePeerAction extends Action {
-  constructor(public peerId: string){
-    super();
-  }
+export interface FetchPeersAction extends Action {
+  type: 'FetchPeersAction'
 }
 
-export function receivePeers(peers: Peer[]): Action {
-  return new ReceivePeersAction(peers);
+export interface ReceivePeersAction extends Action {
+  type: 'ReceivePeersAction'
+  peers: Peer[]
 }
 
-export function fetchPeers(): (d: any) => void {
+export interface CreatePeerAction extends Action {
+  type: 'CreatePeerAction'
+}
+
+export interface EditPeerAction extends Action {
+  type: 'EditPeerAction'
+}
+
+export interface SyncPeerAction extends Action {
+  type: 'SyncPeerAction'
+  id: string
+}
+
+export interface EndSyncPeerAction extends Action {
+  type: 'EndSyncPeerAction'
+  id: string
+}
+
+export interface ConfirmDeletePeerAction extends Action {
+  type: 'ConfirmDeletePeerAction'
+  peerId: string
+}
+
+export interface CancelConfirmDeletePeerAction extends Action {
+  type: 'CancelConfirmDeletePeerAction'
+}
+
+export interface DeletePeerAction extends Action {
+  type: 'DeletePeerAction'
+  peerId: string
+}
+
+export interface EndDeletePeerAction extends Action {
+  type: 'EndDeletePeerAction'
+  peerId: string
+}
+
+export type PeerAction = FetchPeersAction | ReceivePeersAction | CreatePeerAction | EditPeerAction | SyncPeerAction | EndSyncPeerAction | ConfirmDeletePeerAction | CancelConfirmDeletePeerAction | DeletePeerAction | EndDeletePeerAction
+
+export function receivePeers(peers: Peer[]): ReceivePeersAction {
+  return {
+    type: 'ReceivePeersAction',
+    peers
+  };
+}
+
+export function endSync(id: string): EndSyncPeerAction {
+  return {
+    type: 'EndSyncPeerAction',
+    id
+  };
+}
+
+export function fetchPeers(): (d: (Action) => void) => void {
   //parentheses are required for typescript here to wrap the returning object.
   return dispatch => {
       peerService.getPeers()
-      .then(peers => dispatch(new ReceivePeersAction(peers)))
+      .then(peers => dispatch(receivePeers(peers)))
       .catch(console.error);
-      dispatch(new FetchPeersAction());
+      dispatch({ type: 'FetchPeersAction' })
     };
 }
 
 export function createPeer(peer: Peer): (d: any) => void {
-  //parentheses are required for typescript here to wrap the returning object.
   return dispatch => {
       peerService.createPeer(peer)
       .then(peer => {
@@ -77,12 +85,11 @@ export function createPeer(peer: Peer): (d: any) => void {
         dispatch(routeActions.push('/repos'));
       })
       .catch(console.error);
-      dispatch(new CreatePeerAction());
+      dispatch({ type: 'CreatePeerAction()' });
     };
 }
 
 export function updatePeer(id: string, peer: Peer): (d: any) => void {
-  //parentheses are required for typescript here to wrap the returning object.
   return dispatch => {
       peerService.updatePeer(id, peer)
       .then(peer => {
@@ -90,7 +97,7 @@ export function updatePeer(id: string, peer: Peer): (d: any) => void {
         //todo: redirect back to peer list.
         dispatch(routeActions.push('/repos'));
       });
-      dispatch(new EditPeerAction());
+      dispatch({ type: 'EditPeerAction' });
     };
 }
 
@@ -101,29 +108,29 @@ export function syncPeer(id: string): (d: any) => void {
         .then(peer => {
           peerService.getPeers()
           .then(peers => {
-            dispatch(new ReceivePeersAction(peers))
-            dispatch(new EndSyncPeerAction(id))
+            dispatch(receivePeers(peers))
+            dispatch(endSync(id))
           })
         })
         .catch(console.error);
-      dispatch(new SyncPeerAction(id));
+      dispatch({ type: 'SyncPeerAction', id });
     };
 }
 
-export function confirmDeletePeer(peerId: string): Action {
-  return new ConfirmDeletePeerAction(peerId);
+export function confirmDeletePeer(peerId: string): ConfirmDeletePeerAction {
+  return { type: 'ConfirmDeletePeerAction', peerId };
 }
 
-export function cancelConfirmDeletePeer(): Action {
-  return new CancelConfirmDeletePeerAction();
+export function cancelConfirmDeletePeer(): CancelConfirmDeletePeerAction {
+  return { type: 'CancelConfirmDeletePeerAction' };
 }
 
 export function deletePeer(peerId: string) {
   return dispatch => {
     peerService.deletePeer(peerId)
     .then(() => {
-      dispatch(new EndDeletePeerAction(peerId))
+      dispatch({ type: 'EndDeletePeerAction', peerId })
     });
-    dispatch(new DeletePeerAction(peerId));
+    dispatch({ type: 'DeletePeerAction', peerId });
   }
 }
