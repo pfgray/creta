@@ -4,12 +4,16 @@ var _ = require('lodash');
 var request = require('request');
 var model = require('./peer.model');
 var casa_config = require('../../config/casa.js');
-var mongo = require('../../database');
 
 // Get list of things
 exports.createUpdateOperation = function(req, res) {
+  function returnError(err){
+    res.json(err).status(500);
+  }
+
   //get the peer they're talking about
-  model.getPeer(req.casa.db, req.params.peer).then(function(peer){
+  model.getPeer(req.params.peer).then(function(peer){
+    console.log('Got peer:', peer);
     //now, go get all the apps from the payloadUrl!
     exports.updatePeer(req.casa.db, peer, function(err, result){
       console.log('Updated peer...');
@@ -21,7 +25,7 @@ exports.createUpdateOperation = function(req, res) {
       }
       req.casa.db.close();
     });
-  });
+  }).catch(returnError);
 };
 
 var adjInTranslate = function(apps){

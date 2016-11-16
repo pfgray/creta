@@ -69,7 +69,7 @@ exports.create = function(req, res) {
         userId: req.user._id,
         lastUpdated:null
     };
-    model.createPeer(req.casa.db, peer)
+    model.createPeer(peer)
     .then(function(newPeer){
         //TODO: get the peer by id from the db
         peer._id  = newPeer._id;
@@ -91,18 +91,13 @@ exports.delete = function(req, res) {
     res.status(500).json(err);
   }
   console.log("deleting peer with id: ", req.params.peer);
-  model.getPeer(req.casa.db, req.params.peer).then(function(peer) {
-    console.log("got peer:", peer._id);
-    if(req.user._id === peer.userId){
-      model.deletePeer(req.casa.db, peer._id)
-      .then(function(result){
-        res.json(result);
-      }, handleErr);
-    } else {
-      res.status(403).json({
-        message:"You can only delete your own peers"
-      });
-    }
-  })
-  .catch(handleErr);
+  model.getPeerForUser(req.user._id, req.params.peer)
+    .then(function(peer) {
+      console.log("#######lololol:", peer);
+      return model.deletePeer(peer._id);
+    })
+    .then(function(result){
+      res.json(result);
+    })
+    .catch(handleErr);
 };

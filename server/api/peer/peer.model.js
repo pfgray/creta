@@ -6,7 +6,24 @@ var model = require('../../database/couchdb');
 module.exports = {
     getPeer:function(peerId){
       var db = model.getDatabase();
-      return Q.ninvoke(db, 'view', 'casa/peersById', {key: peerId});
+      return Q.ninvoke(db, 'view', 'casa/peersById', {key: peerId})
+        .then(resp => {
+          if(resp[0]){
+            return resp[0].value;
+          } else {
+            return Q.reject("Peer with id: ", peerId, "not found.");
+          }
+        });
+    },
+    getPeerForUser:function(userId, peerId){
+      return this.getPeer(peerId)
+        .then(peer => {
+          if(peer.userId === userId){
+            return peer;
+          } else {
+            return Q.reject({error: "Peer doesn't belong to this user"});
+          }
+        })
     },
     getPeersByUser:function(userId){
       var db = model.getDatabase();
@@ -28,7 +45,7 @@ module.exports = {
           });
         });
     },
-    deletePeer:function(id){
+    deletePeer:function(id, rev){
       var db = model.getDatabase();
       return Q.ninvoke(db, 'remove', id, rev);
     }

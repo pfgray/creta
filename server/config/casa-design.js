@@ -81,6 +81,20 @@ module.exports = {
             }
           }
       },
+      peersById: {
+        map: function(doc){
+          if(doc.type != null && doc.type == 'peer'){
+            emit(doc._id, {
+              "_id": doc._id,
+              "name": doc.name,
+              "payloadUrl": doc.payloadUrl,
+              "type": doc.type,
+              "userId": doc.userId, 
+              "lastUpdated": doc.lastUpdated
+            });
+          }
+        }
+      },
       usersByEmail: {
           map: function(doc) {
             if(doc.type != null && doc.type === 'user'){
