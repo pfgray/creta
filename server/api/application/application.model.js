@@ -10,6 +10,7 @@ var peerModel = require('../peer/peer.model');
 var appModel = {
     getApplicationsForUser: function(userId){
       console.log('getting apps for user...', userId);
+      // todo apps query
       return peerModel.getPeersByUser(userId)
       .then(function(peers){
         var result = _(peers).map(function(peer){
