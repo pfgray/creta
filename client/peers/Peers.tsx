@@ -52,12 +52,14 @@ const Peer = (props) => {
   const { peer, sync, deletePeer, confirmDeletePeer } = props;
   return (
     <div key={peer._id} className='panel peer'>
-      <h3 className='title'>
-        {peer.name}
-        <DeleteButton deletePeer={deletePeer}
-          confirmDeletePeer={confirmDeletePeer} peer={peer} />
-      </h3>
-      <SyncButton sync={sync} peer={peer}/>
+      <div>
+        <h3 className='title'>{peer.name}</h3>
+        <span className='peer-options'>
+          <SyncButton sync={sync} peer={peer}/>
+          <DeleteButton deletePeer={deletePeer}
+            confirmDeletePeer={confirmDeletePeer} peer={peer} />
+        </span>
+      </div>
       <Info label='Payload Url'>{peer.payloadUrl}</Info>
       <Info label='Last Updated'>{peer.lastUpdated !== null ? moment(peer.lastUpdated).fromNow() : 'never'}</Info>
     </div>

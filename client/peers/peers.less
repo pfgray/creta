@@ -2,6 +2,7 @@
   margin-top: 1em;
 
   .title {
+    display: inline-block;
     font-size:1.15em;
     margin-bottom: 0.5em;
   }
@@ -33,7 +34,6 @@
 
   .btn {
     width: auto;
-    margin-bottom: 6px;
     &:hover, &:active, &:focus {
       color: #FFF;
       background-color: darken(@color-primary, 10%);
@@ -42,8 +42,16 @@
 }
 
 .peer-options {
-    text-align: right;
-    margin-bottom: 1em;
+  float: right;
+
+  * {
+    vertical-align: middle;
+  }
+
+  i {
+    font-size: 1.5em;
+    margin-left: 0.5em;
+  }
 }
 
 .jumbotron {
