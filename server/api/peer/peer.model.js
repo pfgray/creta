@@ -30,7 +30,7 @@ module.exports = {
       return Q.ninvoke(db, 'view', 'casa/peersByUser', {key: userId})
           .then(peers => peers.toArray());
     },
-    updatePeer:function(db, peer){
+    updatePeer:function(peer){
       console.log("saving peer:", peer);
       var db = model.getDatabase();
       return Q.ninvoke(db, 'save', peer._id, peer._rev, _.merge(peer, {type:'peer'}));

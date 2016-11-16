@@ -9,7 +9,6 @@ exports.index = function(req, res) {
 
     model.getPeersByUser(req.user._id)
     .then(function(peers){
-      console.log('Got peers: ', peers);
       res.json(peers);
     }, function(err){
       console.log('error getting peers: ', err);
@@ -93,8 +92,7 @@ exports.delete = function(req, res) {
   console.log("deleting peer with id: ", req.params.peer);
   model.getPeerForUser(req.user._id, req.params.peer)
     .then(function(peer) {
-      console.log("#######lololol:", peer);
-      return model.deletePeer(peer._id);
+      return model.deletePeer(peer._id, peer._rev);
     })
     .then(function(result){
       res.json(result);

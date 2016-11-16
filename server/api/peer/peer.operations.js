@@ -1,31 +1,26 @@
 'use strict';
 
 var _ = require('lodash');
-var request = require('request');
+var request = require('superagent');
 var model = require('./peer.model');
 var casa_config = require('../../config/casa.js');
+var Q = require('q');
 
 // Get list of things
 exports.createUpdateOperation = function(req, res) {
   function returnError(err){
+    console.log('error saving Peer: ', err);
     res.json(err).status(500);
   }
 
   //get the peer they're talking about
-  model.getPeer(req.params.peer).then(function(peer){
-    console.log('Got peer:', peer);
-    //now, go get all the apps from the payloadUrl!
-    exports.updatePeer(req.casa.db, peer, function(err, result){
-      console.log('Updated peer...');
-      if(err){
-        console.log('error saving Peer: ', err);
-        res.json(result, 500);
-      } else {
-        res.json(result);
-      }
-      req.casa.db.close();
-    });
-  }).catch(returnError);
+  model.getPeerForUser(req.user._id, req.params.peer)
+    .then(peer => exports.updatePeer(peer))
+    .then(() => {
+      console.log("returning success?");
+      res.json({success: true});
+    })
+    .catch(returnError);
 };
 
 var adjInTranslate = function(apps){
@@ -95,24 +90,27 @@ var adjInFilter = function(apps){
     return filteredApps;
 }
 
-exports.updatePeer = function(db, peer, callback){
+exports.updatePeer = function(peer){
     console.log('updating peer...', peer._id);
-    request(peer.payloadUrl, function (error, response, body) {
-        if (!error && response.statusCode === 200) {
-            console.log('got successful response...');
-            var apps = adjInTranslate(JSON.parse(body));
-            apps = adjInSquash(apps);
-            apps = adjInFilter(apps);
-            //let's add the apps to the peer object!
-            peer.apps = apps;
-            peer.lastUpdated = new Date();
-            console.log('Now updating peer...');
-            model.updatePeer(db, peer).then(function(res){
-                peer._rev = res._rev;
-                callback(null, peer);
-            }, callback);
-        } else {
-            callback(error);
-        }
+    return requestToPromise(request.get(peer.payloadUrl))
+      .then(apps => adjInTranslate(apps))
+      .then(apps => adjInSquash(apps))
+      .then(apps => adjInFilter(apps))
+      .then(apps => Object.assign({}, peer, {
+        apps: apps,
+        lastUpdated: new Date()
+      }))
+      .then(updatedPeer => model.updatePeer(updatedPeer));
+}
+
+function requestToPromise(req){
+  var deferred = Q.defer();
+  req.end((err, res) => {
+      if(err){
+        deferred.reject(err);
+      } else {
+        deferred.resolve(res.body);
+      }
     });
+  return deferred.promise;
 }
