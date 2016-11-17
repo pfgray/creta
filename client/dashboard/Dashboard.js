@@ -4,6 +4,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Grid, Row, Col } from 'react-bootstrap';
+import { Link } from 'react-router';
 
 import Dashbox from './Dashbox';
 import { fetchDashboard } from './DashboardActions';
@@ -42,16 +43,23 @@ class Dashboard extends React.Component {
     setTimeout(cb, 500);
   }
   render() {
+    const appsTitle = (<div><i className="fa fa-cubes" aria-hidden="true"></i>Apps</div>);
+    const repositoresTitle = (
+      <div>
+        <i className="fa fa-database" aria-hidden="true"></i>
+        <Link to='/repos'>Repositories</Link>
+      </div>
+    );
     return this.props.apps ? (
       <Grid className='dash'>
         <Row>
           <Col lg={6} md={12}>
-            <Dashbox title='Apps'>
+            <Dashbox title={appsTitle}>
               <AppList apps={this.props.apps}/>
             </Dashbox>
           </Col>
           <Col lg={6} md={12}>
-            <Dashbox title='Repositories' link='/repos'>
+            <Dashbox title={repositoresTitle}>
               <PeerList peers={this.props.peers}/>
             </Dashbox>
           </Col>

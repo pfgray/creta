@@ -7,7 +7,7 @@ var model = require('./storefront.model');
 exports.index = function(req, res) {
     console.log("Getting storefronts for user: ", req.user._id);
 
-    model.getStorefrontsByUser(req.casa.db, req.user._id)
+    model.getStorefrontsByUser(req.user._id)
     .then(function(storefronts){
       res.json(storefronts);
     }, function(err){
@@ -15,14 +15,14 @@ exports.index = function(req, res) {
       res.json({
         status:'error',
         message:err
-      }, 500);
+      }).status(500);
     });
 };
 
 exports.fetch = function(req, res) {
-    console.log("Getting storefronts with id: ", req.params.storefront);
+    console.log("Getting storefront with id: ", req.params.storefront);
 
-    model.getStorefront(req.casa.db, req.params.storefront)
+    model.getStorefront(req.params.storefront)
     .then(function(storefront){
       console.log('Found storefront:', storefront);
       if(req.user._id !== storefront.userId){
@@ -49,10 +49,10 @@ exports.create = function(req, res) {
         name:req.body.name,
         userId: req.user._id
     };
-    model.createStorefront(req.casa.db, storefront)
-    .then(function(newPeer){
+    model.createStorefront(storefront)
+    .then(newStore => {
         //TODO: get the storefront by id from the db
-        storefront._id  = newPeer._id;
+        storefront._id  = newStore._id;
         storefront.app_count = 0;
         res.json(storefront);
     })

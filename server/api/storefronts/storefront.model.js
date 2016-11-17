@@ -11,11 +11,8 @@ module.exports = {
     },
     getStorefrontsByUser:function(userId){
       var db = model.getDatabase();
-      const storefronts = Q.ninvoke(db, 'view', 'casa/storefrontsByUserId', {
-        key: userId
-      });
-      console.log('Got storefrons: ', storefronts);
-      return storefronts;
+      return Q.ninvoke(db, 'view', 'casa/storefrontsByUserId', { key: userId })
+      .then(stores => stores.toArray());
     },
     updateStorefront:function(db, storefront){
       console.log("saving storefront:", storefront);
@@ -28,7 +25,7 @@ module.exports = {
         key: randomstring.generate(),
         secret: randomstring.generate()
       }];
-      return Q.ninvoke(db, 'save', storefront);
+      return Q.ninvoke(db, 'save', Object.assign(storefront, {type: 'storefront'}));
     },
     deletePeer:function(id, rev){
       var db = model.getDatabase();
