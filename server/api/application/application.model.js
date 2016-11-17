@@ -9,15 +9,9 @@ var peerModel = require('../peer/peer.model');
 
 var appModel = {
     getApplicationsForUser: function(userId){
-      console.log('getting apps for user...', userId);
-      // todo apps query
-      return peerModel.getPeersByUser(userId)
-      .then(function(peers){
-        var result = _(peers).map(function(peer){
-          return peer.apps || [];
-        }).flatten().value();
-        return result;
-      });
+      var db = model.getDatabase();
+      return Q.ninvoke(db, 'view', 'casa/applicationsByUser', {group: true, reduce: true})
+        .then(resp => resp.toArray());
     },
     getApplicationsForStorefront: function(storefrontId){
       return storefrontModel.getStorefront(db, storefrontId)
