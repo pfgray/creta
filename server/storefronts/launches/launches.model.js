@@ -15,10 +15,7 @@ module.exports = {
       launchParameters: launchParameters,
       timestamp: new Date()
     };
-    return Q.ninvoke(db, 'save', storefrontLaunch)
-      .then(function(result){
-        return result.ops[0];
-      });
+    return Q.ninvoke(db, 'save', storefrontLaunch);
   },
   getTotalLaunchesForStorefronts: function(storefrontIds){
     return Q.ninvoke(db, 'view', 'casa/launchesByStorefront', {keys: storefrontIds, group: true, reduce: true})

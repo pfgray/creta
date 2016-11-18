@@ -48,5 +48,15 @@ module.exports = {
         forceSave: true
     });
     return c.database(couch.db_name);
+  },
+  extractOne: id => resp => {
+    var message = id ? ' (with id: ' + id + ')' : '';
+    if(!resp[0]){
+      throw new Error("Expected exactly one item" + message + ", but none found.");
+    } else if (resp[1]) {
+      throw new Error("Expected exactly one item" + message + ", but multiple found.");
+    } else {
+      return resp[0].value;
+    }
   }
 }

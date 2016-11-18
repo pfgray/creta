@@ -7,13 +7,7 @@ module.exports = {
     getPeer:function(peerId){
       var db = model.getDatabase();
       return Q.ninvoke(db, 'view', 'casa/peersById', {key: peerId})
-        .then(resp => {
-          if(resp[0]){
-            return resp[0].value;
-          } else {
-            return Q.reject("Peer with id: ", peerId, "not found.");
-          }
-        });
+        .then(model.extractOne(peerId));
     },
     getPeerForUser:function(userId, peerId){
       return this.getPeer(peerId)

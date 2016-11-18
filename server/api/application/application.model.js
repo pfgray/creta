@@ -14,7 +14,7 @@ var appModel = {
         .then(resp => resp.toArray());
     },
     getApplicationsForStorefront: function(storefrontId){
-      return storefrontModel.getStorefront(db, storefrontId)
+      return storefrontModel.getStorefront(storefrontId)
       .then(storefront => {
         console.log('getting apps... for storefront');
         return appModel.getApplicationsForUser(storefront.userId)

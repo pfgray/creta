@@ -5,9 +5,10 @@ var model = require('../../database/couchdb');
 var randomstring = require("randomstring");
 
 module.exports = {
-    getStorefront:function(db, storefrontId){
+    getStorefront:function(storefrontId){
       var db = model.getDatabase();
-      return Q.ninvoke(db, 'view', 'casa/storefronts');
+      return Q.ninvoke(db, 'view', 'casa/storefronts')
+        .then(model.extractOne(storefrontId));
     },
     getStorefrontsByUser:function(userId){
       var db = model.getDatabase();

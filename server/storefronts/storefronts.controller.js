@@ -1,6 +1,7 @@
 
 var fs = require('fs');
 var ejs = require('ejs');
+var Q = require('q');
 
 var environment = require('../config/environment');
 var storefrontModel = require('../api/storefronts/storefront.model');
@@ -26,6 +27,7 @@ exports.lti = function(req, res) {
   //find the storefront which this app
   storefrontModel.getStorefront(req.casa.db, req.params.storefront)
   .then(function(storefront){
+    console.log('found storefront: ', storefront);
     var keypair = storefront.keypairs.find(function(keypair){
       return req.body.oauth_consumer_key === keypair.key;
     });
@@ -40,29 +42,18 @@ exports.lti = function(req, res) {
   })
   .then(function(info) {
     var provider = new lti.Provider(info.keypair.key, info.keypair.secret, lti.MemoryStore, lti.HMAC_SHA1);
-    provider.valid_request(req, function(err, isValid){
-      if(!isValid){
-        throw err;
-      } else {
-        console.log("successfully validated lti launch");
-        //store information about this launch:
-        launchModel.createStorefrontLaunch(req.casa.db, req.params.storefront, req.body)
-        .then(function(){
-          req.session.lti = {
-            store: req.params.storefront,
-            resource_link_id: req.body.resource_link_id
-          };
-          res.redirect(303, "/store");
-        });
-      }
-    });
-  }, function(err){
-    console.log('error validating lti launch: ', err);
-    console.log(err.stack);
-    res.json({
-        status:'error',
-        message:err
-    }, 500);
+    return Q.ninvoke(provider, "valid_request", req);
+  })
+  .then(() => {
+    console.log("successfully validated lti launch");
+    return launchModel.createStorefrontLaunch(req.params.storefront, req.body);
+  })
+  .then(() => {
+    req.session.lti = {
+      store: req.params.storefront,
+      resource_link_id: req.body.resource_link_id
+    };
+    res.redirect(303, "/store");
   })
   .catch(function(err){
     console.log('error validating lti launch: ', err);
