@@ -29,7 +29,10 @@ export default ({ dispatch, loading, apps, searchText }) => {
 
 
 
-  var apps = filtered.map(app => <App app={app} highlights={terms}/>);
+  var apps = filtered.map(app => {
+    const { casaDescriptor: { identity: {originator_id, id}}} = app;
+    return <App app={app} key={originator_id + id} highlights={terms}/>;
+  });
 
   var appList = !loading ? apps : (
     <div className='loading-container'>

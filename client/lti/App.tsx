@@ -29,7 +29,7 @@ export default (props) => {
     description;
 
   return (
-    <div className='app' key={app_id}>
+    <div className='app'>
       {header}
       <div className='app-body'>
           {highlight(shortDesc, props.highlights)}
@@ -40,9 +40,9 @@ export default (props) => {
 
 
 // returns an array of spans, with class of 'highlighted if that matches the word'
-const highlight = (text, words) => {
+const highlight = (text, words, i = 0) => {
   if(text){
-    var first = null;
+    var first: any = null;
     words.forEach(function(word){
       var index = text.toLowerCase().indexOf(word.toLowerCase());
       if(word !== '' &&
@@ -58,17 +58,15 @@ const highlight = (text, words) => {
 
     if(first === null){
       //base case!
-      return [(<span>{text}</span>)];
+      return [(<span key={i}>{text}</span>)];
     } else {
       var unhigh    = text.substring(0, first.i);
       var high      = text.substring(first.i, first.i + first.val.length);
       var remaining = text.substring(first.i + first.val.length);
-      console.log('with first: ', first);
-      console.log('computed: ', unhigh, high, remaining);
       return [
-        (<span>{unhigh}</span>),
-        (<span className='highlight'>{high}</span>)
-      ].concat(highlight(remaining, words));
+        (<span key={i}>{unhigh}</span>),
+        (<span key={i + 1} className='highlight'>{high}</span>)
+      ].concat(highlight(remaining, words, i + 2));
     }
   }
 }
