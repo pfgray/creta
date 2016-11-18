@@ -10,3 +10,4 @@
 /// <reference path="browser/ambient/react-router/react-router.d.ts" />
 /// <reference path="browser/ambient/react/react.d.ts" />
 /// <reference path="browser/ambient/superagent/superagent.d.ts" />
+/// <reference path="custom/react-infinite.d.ts" />

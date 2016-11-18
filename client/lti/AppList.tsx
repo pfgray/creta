@@ -3,6 +3,11 @@ import * as React from 'react';
 import App from './App';
 import { Input } from 'react-bootstrap';
 import { UpdateSearchTextAction } from './appStore/AppStoreActions';
+import * as Infinite from 'react-infinite';
+
+console.log("uhhh... acualt got: ", Infinite);
+
+const InfiniteWut: any = Infinite;
 
 function containsStr(str1, str2){
   return str1 && str2 &&
@@ -52,7 +57,9 @@ export default ({ dispatch, loading, apps, searchText }) => {
       </div>
       <div>
         <div className='app-store-list'>
-          {appList}
+          <InfiniteWut containerHeight={200} elementHeight={40}>
+            {appList}
+          </InfiniteWut>
         </div>
       </div>
     </div>
