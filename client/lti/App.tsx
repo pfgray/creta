@@ -7,7 +7,6 @@ const MaxDescLength = 100;
 
 export default (props) => {
   const data = props.app.casaDescriptor;
-  console.log('data:', data.identity);
 
   const { icon, description } = data.attributes.use;
   var app_id = data.identity.originator_id + data.identity.id;
@@ -15,7 +14,7 @@ export default (props) => {
   var app_label = data.attributes.use.title.substring(0, 1).toUpperCase();
   var title = highlight(data.attributes.use.title, props.highlights);
   var background_style = {
-      "background-color":color
+      backgroundColor:color
   };
 
   var header = (
@@ -30,7 +29,7 @@ export default (props) => {
     description;
 
   return (
-    <div className='app'>
+    <div className='app' key={app_id}>
       {header}
       <div className='app-body'>
           {highlight(shortDesc, props.highlights)}

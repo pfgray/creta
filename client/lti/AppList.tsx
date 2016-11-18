@@ -1,8 +1,8 @@
 
 import * as React from 'react';
-import App from './App.tsx';
+import App from './App';
 import { Input } from 'react-bootstrap';
-import { UpdateSearchTextAction } from './appStore/AppStoreActions.ts'; 
+import { UpdateSearchTextAction } from './appStore/AppStoreActions';
 
 function containsStr(str1, str2){
   return str1 && str2 &&
@@ -10,8 +10,11 @@ function containsStr(str1, str2){
       str1.toLowerCase().indexOf(str2.toLowerCase()) > -1;
 }
 
-const updateSearch = dispatch => event => 
-  dispatch(new UpdateSearchTextAction(event.target.value));
+const updateSearch = dispatch => event =>
+  dispatch({
+    type: 'UpdateSearchTextAction',
+    searchText: event.target.value
+  });
 
 export default ({ dispatch, loading, apps, searchText }) => {
   const trimmed = searchText.trim();
@@ -39,7 +42,7 @@ export default ({ dispatch, loading, apps, searchText }) => {
       <div className='row'>
         <div className='col-sm-8 col-sm-offset-2'>
           <div className='search-box'>
-            <Input type='text' placeholder='Find' 
+            <Input type='text' placeholder='Find'
                    value={searchText} onChange={updateSearch(dispatch)} />
           </div>
         </div>

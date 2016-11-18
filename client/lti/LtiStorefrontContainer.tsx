@@ -5,7 +5,7 @@ import * as React from 'react';
 import { connect, ElementClass } from 'react-redux';
 import * as _ from 'lodash';
 
-import LtiStorefront from './LtiStorefront.tsx';
+import LtiStorefront from './LtiStorefront';
 
 import { fetchStorefront } from './appStore/AppStoreActions';
 

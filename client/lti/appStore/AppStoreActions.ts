@@ -1,31 +1,35 @@
 import { routeActions } from 'react-router-redux';
-import AppStoreService from './AppStoreService.ts';
-import { App } from './App.ts';
-import { typeName, isType, Action } from '../../common/redux-extras.ts';
+import AppStoreService from './AppStoreService';
+import { App } from './App';
+import { Action } from 'redux';
 
 const appStoreService = new AppStoreService();
 
-@typeName("FetchAppStoreAction")
-export class FetchAppStoreAction extends Action {}
-@typeName("ReceiveAppStoreAction")
-export class ReceiveAppStoreAction extends Action {
-  constructor(public appStore: App[]){
-    super();
-  }
+export interface FetchAppStoreAction extends Action {
+  type: 'FetchAppStoreAction'
 }
-@typeName("UpdateSearchTextAction")
-export class UpdateSearchTextAction extends Action {
-  constructor(public searchText: string){
-    super();
-  }
+
+export interface ReceiveAppStoreAction extends Action {
+  type: 'ReceiveAppStoreAction'
+  appStore: App[]
 }
+
+export interface UpdateSearchTextAction extends Action {
+  type: 'UpdateSearchTextAction'
+  searchText: string
+}
+
+export type AppStoreAction = FetchAppStoreAction | ReceiveAppStoreAction | UpdateSearchTextAction;
 
 export function fetchStorefront(id: string): (d: any) => void {
   //parentheses are required for typescript here to wrap the returning object.
   return dispatch => {
       appStoreService.getAppStore(id)
-        .then(apps => dispatch(new ReceiveAppStoreAction(apps)))
+        .then(apps => dispatch({
+          type: 'ReceiveAppStoreAction',
+          appStore: apps
+        }))
         .catch(console.error);
-      dispatch(new FetchAppStoreAction());
+      dispatch({ type: 'FetchAppStoreAction' });
     };
 }

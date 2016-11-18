@@ -1,10 +1,6 @@
-import { isType, Action } from '../../common/redux-extras.ts';
-import { App } from './App.ts';
-import {
-  FetchAppStoreAction,
-  ReceiveAppStoreAction,
-  UpdateSearchTextAction
-} from './AppStoreActions.ts';
+import { Action } from 'redux';
+import { App } from './App';
+import { AppStoreAction } from './AppStoreActions';
 
 interface AppStoreState {
   loading: boolean,
@@ -19,20 +15,25 @@ const initialState: AppStoreState = {
 };
 
 //This only exists for when/if we add auth inside the client (need to set it without refreshing page)
-export default function(state: AppStoreState = initialState, action: Action): AppStoreState {
-  if(isType(action, FetchAppStoreAction)){
-    return Object.assign({}, state, {
-      loading: true
-    });
-  } else if(isType(action, ReceiveAppStoreAction)){
-    return Object.assign({}, state, {
-      loading: false,
-      appStore: action.appStore
-    });
-  } else if(isType(action, UpdateSearchTextAction)){
-    return Object.assign({}, state, {
-      searchText: action.searchText
-    });
+export default function(state: AppStoreState = initialState, a: AppStoreAction): AppStoreState {
+  switch(a.type) {
+    case 'FetchAppStoreAction':
+      return Object.assign({}, state, {
+        loading: true
+      });
+
+    case 'ReceiveAppStoreAction':
+      return Object.assign({}, state, {
+        loading: false,
+        appStore: a.appStore
+      });
+
+    case 'UpdateSearchTextAction':
+      return Object.assign({}, state, {
+        searchText: a.searchText
+      });
+
+    default:
+      return state;
   }
-  return state;
 }

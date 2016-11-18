@@ -23,7 +23,6 @@ export default class ColorService {
     return this.colors[Math.floor(Math.random() * 6)];
   }
   getColorForString(input){
-    console.log('getting color: ', input, this.colors);
     const number = Math.abs(this.hasher(input));
     return this.colors[Math.floor(number % this.colors.length)];
   };
