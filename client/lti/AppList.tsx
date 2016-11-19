@@ -4,8 +4,12 @@ import App from './App';
 import { Input } from 'react-bootstrap';
 import { UpdateSearchTextAction } from './appStore/AppStoreActions';
 import * as Infinite from 'react-infinite';
+import { Maybe, Just, Nothing } from '../helper/Maybe';
 
-console.log("uhhh... acualt got: ", Infinite);
+type State = {
+  windowHeight: number
+  windowWidth: number
+}
 
 const InfiniteWut: any = Infinite;
 
@@ -21,47 +25,72 @@ const updateSearch = dispatch => event =>
     searchText: event.target.value
   });
 
-export default ({ dispatch, loading, apps, searchText }) => {
-  const trimmed = searchText.trim();
-  const terms = searchText.split(' ');
-  var filtered = trimmed === '' ? apps :
-    _.filter(apps as any[], app => {
-      var { title, description } = app.casaDescriptor.attributes.use;
-      return _.some([title, description], attr => {
-        return _.some(terms, term => containsStr(attr, term));
+export default class AppList extends React.Component<any, State> {
+  constructor(props){
+    super(props);
+    this.state = {
+      windowHeight: window.innerHeight,
+      windowWidth: window.innerWidth
+    }
+  }
+  componentDidMount(){
+    window.addEventListener('resize', event => {
+      this.setState({
+        windowHeight: window.innerHeight,
+        windowWidth: window.innerWidth
       });
-  });
+    });
+  }
+  render() {
+    const height = this.state.windowHeight - 56 - 73;
 
+    //todo calculate the amount of columns based on window width
+    const columns = 3;
+    const elementHeight = 135 / columns;
 
+    const { dispatch, loading, apps, searchText } = this.props;
+    const trimmed = searchText.trim();
+    const terms = searchText.split(' ');
+    var filtered = trimmed === '' ? apps :
+      _.filter(apps as any[], app => {
+        var { title, description } = app.casaDescriptor.attributes.use;
+        return _.some([title, description], attr => {
+          return _.some(terms, term => containsStr(attr, term));
+        });
+    });
 
-  var apps = filtered.map(app => {
-    const { casaDescriptor: { identity: {originator_id, id}}} = app;
-    return <App app={app} key={originator_id + id} highlights={terms}/>;
-  });
+    var appElements = filtered.map(app => {
+      const { casaDescriptor: { identity: {originator_id, id}}} = app;
+      return <App app={app} key={originator_id + id} highlights={terms}/>;
+    });
 
-  var appList = !loading ? apps : (
-    <div className='loading-container'>
-      <i className="fa fa-circle-o-notch fa-spin"></i>
-    </div>
-  );
+    var appList = !loading ? appElements : (
+      <div className='loading-container'>
+        <i className="fa fa-circle-o-notch fa-spin"></i>
+      </div>
+    );
 
-  return (
-    <div className="container">
-      <div className='row'>
-        <div className='col-sm-8 col-sm-offset-2'>
-          <div className='search-box'>
-            <Input type='text' placeholder='Find'
-                   value={searchText} onChange={updateSearch(dispatch)} />
+    return (
+      <div>
+        <div className="app-store-list-header">
+          <div className="container">
+            <div className='row'>
+              <div className='col-sm-8 col-sm-offset-2'>
+                <div className='search-box'>
+                  <Input type='text' placeholder='Find'
+                         value={searchText} onChange={updateSearch(dispatch)} />
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-      <div>
+
         <div className='app-store-list'>
-          <InfiniteWut containerHeight={200} elementHeight={40}>
+          <InfiniteWut containerHeight={height} elementHeight={(105 + 30) / 3}>
             {appList}
           </InfiniteWut>
         </div>
       </div>
-    </div>
-  );
+    );
+  }
 }
