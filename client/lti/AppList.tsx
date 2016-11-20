@@ -44,9 +44,7 @@ export default class AppList extends React.Component<any, State> {
   render() {
     const height = this.state.windowHeight - 56 - 73;
 
-    //todo calculate the amount of columns based on window width
-    const columns = 3;
-    const elementHeight = 135 / columns;
+    const elementHeight = 120;
 
     const { dispatch, loading, apps, searchText } = this.props;
     const trimmed = searchText.trim();
@@ -86,7 +84,7 @@ export default class AppList extends React.Component<any, State> {
         </div>
 
         <div className='app-store-list'>
-          <InfiniteWut containerHeight={height} elementHeight={(105 + 30) / 3}>
+          <InfiniteWut containerHeight={height} elementHeight={elementHeight}>
             {appList}
           </InfiniteWut>
         </div>
