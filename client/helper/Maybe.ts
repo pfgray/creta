@@ -1,5 +1,13 @@
 export type Maybe<A> = Just<A> | Nothing<A>;
 
+export function Maybe<A>(a?: A): Maybe<A> {
+  if(a == null) {
+    return Just(a);
+  } else {
+    return Nothing<A>();
+  }
+}
+
 export interface Just<A> {
   type: 'Just';
   value: A;
