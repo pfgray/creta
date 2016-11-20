@@ -18,6 +18,7 @@
     "./client/common/redux-extras.ts",
     "./client/common/requestHelpers.ts",
     "./client/header/HeaderContainer.ts",
+    "./client/helper/Either.ts",
     "./client/helper/Maybe.ts",
     "./client/login/LoginService.ts",
     "./client/login/signup/SignupService.ts",
