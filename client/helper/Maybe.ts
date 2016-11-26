@@ -14,7 +14,8 @@ export interface Just<A> {
   map<B>(f: (a: A) => B): Maybe<B>,
   getOrElse(f: () => A): A,
   fold<B>(z: () => B): (f: (a: A) => B) => B,
-  flatMap<B>(f: (a: A) => Maybe<B>): Maybe<B>
+  flatMap<B>(f: (a: A) => Maybe<B>): Maybe<B>,
+  isJust(): Boolean
 };
 
 export function Just<A>(value: A): Just<A>{
@@ -32,7 +33,8 @@ export function Just<A>(value: A): Just<A>{
     },
     flatMap: function<B>(f: (a: A) => Maybe<B>): Maybe<B> {
       return f(value);
-    }
+    },
+    isJust(){ return true; }
   }
 };
 
@@ -41,7 +43,8 @@ export interface Nothing<A> {
   map<B>(f: (a: A) => B): Maybe<B>
   getOrElse(f: () => A): A,
   fold<B>(z: () => B): (f: (a: A) => B) => B,
-  flatMap<B>(f: (a: A) => Maybe<B>): Maybe<B>
+  flatMap<B>(f: (a: A) => Maybe<B>): Maybe<B>,
+  isJust(): Boolean
 };
 
 export function Nothing<A>(): Nothing<A> {
@@ -58,6 +61,7 @@ export function Nothing<A>(): Nothing<A> {
     },
     flatMap: function<B>(f: (a: A) => Maybe<B>): Maybe<B> {
       return Nothing<B>();
-    }
+    },
+    isJust() { return false; }
   }
 };

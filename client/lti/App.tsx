@@ -2,6 +2,8 @@ import * as React from 'react';
 import ColorService from '../ui/ColorService';
 import * as _ from 'lodash';
 
+import { SelectAppAction } from './appStore/AppStoreActions';
+
 const colorService = new ColorService();
 const MaxDescLength = 100;
 
@@ -29,7 +31,7 @@ export default (props) => {
     description;
 
   return (
-    <div className='app'>
+    <div className='app' onClick={() => props.dispatch(SelectAppAction(app_id))}>
       {header}
       <div className='app-body'>
           {highlight(shortDesc, props.highlights)}

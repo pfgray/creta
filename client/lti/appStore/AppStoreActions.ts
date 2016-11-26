@@ -34,7 +34,21 @@ export function UpdateSearchTextAction(searchText: string): UpdateSearchTextActi
   };
 }
 
-export type AppStoreAction = FetchAppStoreAction | ReceiveAppStoreAction | UpdateSearchTextAction;
+export interface SelectAppAction extends Action {
+  type: 'SelectAppAction',
+  appId: number
+}
+export function SelectAppAction(appId: number){
+  return { type: 'SelectAppAction', appId };
+}
+export interface CancelSelectAppAction extends Action {
+  type: 'CancelSelectAppAction'
+}
+export function CancelSelectAppAction(){
+  return { type: 'CancelSelectAppAction' };
+}
+
+export type AppStoreAction = FetchAppStoreAction | ReceiveAppStoreAction | UpdateSearchTextAction | SelectAppAction | CancelSelectAppAction;
 
 export function fetchStorefront(id: string): (d: any) => void {
   //parentheses are required for typescript here to wrap the returning object.

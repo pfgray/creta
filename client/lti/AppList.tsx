@@ -59,7 +59,7 @@ export default class AppList extends React.Component<any, State> {
 
     var appElements = filtered.map(app => {
       const { casaDescriptor: { identity: {originator_id, id}}} = app;
-      return <App app={app} key={originator_id + id} highlights={terms}/>;
+      return <App app={app} key={originator_id + id} highlights={terms} dispatch={dispatch}/>;
     });
 
     var appList = !loading ? appElements : (
