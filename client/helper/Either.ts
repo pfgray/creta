@@ -1,36 +1,66 @@
-export type Either<L, R> = Left<L, R> | Right<L, R>;
+export type Either<L, R> = Left<L> | Right<R>;
 
-export interface Left<L, R> {
-  type: 'Left',
-  flatMap<RR>(f: (r: R) => Either<L, RR>): Either<L, RR>
+export interface Left<L> {
+  type: 'Left';
+  value: L;
 }
 
-export function Left<L, R>(l: L): Left<L, R> {
+export interface Right<R> {
+  type: 'Right';
+  value: R;
+}
+
+type CaseMatcher<L, R, Z> = {
+  left:  (l: L) => Z,
+  right: (r: R) => Z
+};
+
+export const Either = {
+  caseOf<L, R, Z>(e: Either<L, R>): (c: CaseMatcher<L, R, Z>) => Z {
+    switch(e.type) {
+      case 'Left':
+        return c => c.left(e.value);
+      case 'Right':
+        return c => c.right(e.value);
+    }
+  },
+  flatMap<L, R, RR>(e: Either<L, R>): (f: (r: R) => Either<L, RR>) => Either<L, RR> {
+    switch(e.type) {
+      case 'Left':
+        return f => e;
+      case 'Right':
+        return f => f(e.value);
+    }
+  },
+  map<L, R, RR>(e: Either<L, R>): (f: (r: R) => RR) => Either<L, RR> {
+    switch(e.type) {
+      case 'Left':
+        return f => e;
+      case 'Right':
+        return f => Right(f(e.value));
+    }
+  },
+  isRight<L, R>(e: Either<L, R>): Boolean {
+    return Either.caseOf<L, R, Boolean>(e)({
+      left:  l => false,
+      right: r => true
+    });
+  },
+  isLeft<L, R>(e: Either<L, R>): Boolean {
+    return !Either.isRight<L, R>(e);
+  }
+}
+
+export function Left<L>(l: L): Left<L> {
   return {
     type: 'Left',
-    flatMap<RR>(f: (r: R) => Either<L, RR>){
-      return Left(l);
-    }
-  }
-}
+    value: l
+  };
+};
 
-export interface Right<L, R> {
-  type: 'Right',
-  flatMap<RR>(f: (r: R) => Either<L, RR>): Either<L, RR>
-}
-
-export function Right<L, R>(r: R): Right<L, R> {
+export function Right<R>(r: R): Right<R> {
   return {
     type: 'Right',
-    flatMap<RR>(f: (r: R) => Either<L, RR>){
-      return f(r);
-    }
-  }
+    value: r
+  };
 }
-
-function lol(): Either<string, number> {
-  //return Left<string, number>(123);
-  return Left<number, string>(123);
-}
-
-var myEither = lol();
