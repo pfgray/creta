@@ -39,7 +39,8 @@ var all = {
 
 };
 
-console.log(all);
+console.log('Using config:');
+Object.keys(all).forEach(key => console.log('    ' + all[key]));
 
 var envConfig = require('./' + process.env.NODE_ENV + '.js') || {};
 

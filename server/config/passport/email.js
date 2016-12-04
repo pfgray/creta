@@ -3,7 +3,6 @@ var passport = require('passport');
 var Q = require('q');
 var userModel = require('../../api/user/user.model.js');
 var LocalStrategy = require('passport-local');
-var injectDb = require('../../database/injectDb');
 var bcrypt = require('bcrypt');
 var invitations = require('../../components/invitations');
 
@@ -34,7 +33,7 @@ module.exports = function(app, config){
     }
   ));
 
-  app.post('/api/signup', injectDb, function(req, res){
+  app.post('/api/signup', function(req, res){
     console.log('got signup request: ', req.body);
     //does there already exist a user with this email?
     userModel.getUserByEmail(req.body.email)
@@ -65,7 +64,6 @@ module.exports = function(app, config){
   });
 
   app.post('/api/login',
-    injectDb,
     passport.authenticate('local'),
     function(req, res) {
       // Successful authentication, redirect home.

@@ -14,7 +14,7 @@ const initialState: AppStoreState = {
   loading: true,
   appStore: [],
   searchText: '',
-  selectedApp: Nothing<number>()
+  selectedApp: Nothing()
 };
 
 //This only exists for when/if we add auth inside the client (need to set it without refreshing page)

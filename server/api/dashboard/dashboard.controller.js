@@ -18,7 +18,6 @@ exports.index = function(req, res) {
     );
       return;
     }
-    var db = req.casa.db;
     var user = req.user._id;
 
     Q.all([
