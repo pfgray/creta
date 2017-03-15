@@ -93,7 +93,7 @@ var ltiXmlConfigTemplate = fs.readFileSync('./server/storefronts/storefrontLtiCo
 
 exports.appStoreConfig = function(req, res) {
   console.log('getting config for: ', req.params.storefront);
-  storefrontModel.getStorefront(req.casa.db, req.params.storefront)
+  storefrontModel.getStorefront(req.params.storefront)
   .then(function(storefront){
     //console.log('rendering config for storefront: ', storefront);
     res.set('Content-Type', 'application/xml');
