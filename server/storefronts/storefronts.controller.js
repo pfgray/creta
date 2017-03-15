@@ -25,7 +25,7 @@ exports.lti = function(req, res) {
       //if so, sign them in
 
   //find the storefront which this app
-  storefrontModel.getStorefront(req.casa.db, req.params.storefront)
+  storefrontModel.getStorefront(req.params.storefront)
   .then(function(storefront){
     console.log('found storefront: ', storefront);
     var keypair = storefront.keypairs.find(function(keypair){

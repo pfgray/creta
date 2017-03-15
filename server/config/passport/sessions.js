@@ -1,6 +1,7 @@
 var session = require('express-session'),
     connect = require('connect');
-    ConnectCouchDB = require('connect-couchdb')(session);
+    ConnectCouchDB = require('connect-couchdb')(session)
+    couch = require('../environment').couch;
 
 const opts = {
   // Name of the database you would like to use for sessions.
@@ -10,7 +11,8 @@ const opts = {
   // for more informations
   // username: 'username',
   // password: 'password',
-  host: 'localhost',
+  host: couch.host,
+  port: couch.port,
 
   // Optional. How often expired sessions should be cleaned up.
   // Defaults to 600000 (10 minutes).

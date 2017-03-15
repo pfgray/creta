@@ -10,14 +10,9 @@ var casa_design = require('../config/casa-design.js');
 module.exports = {
   init: function(config){
     console.log('initing database...', couch);
-
-    var c =  new(cradle.Connection)(couch.host, couch.port, {
-        cache: true,
-        raw: false,
-        forceSave: true
-    });
-    var db = c.database(config.couch.db_name);
+    var db = this.getDatabase();
     var updateDesign = function(design){
+      console.log('updating design: ', couch)
         db.save(design._id, design);
     }
     db.exists(function (err, exists) {
@@ -42,7 +37,8 @@ module.exports = {
     });
   },
   getDatabase: function(){
-    var c =  new(cradle.Connection)(couch.host, couch.port, {
+    console.log('About to create DB', couch.host, couch.port)
+    var c =  new(cradle.Connection)('http://' + couch.host, couch.port, {
         cache: true,
         raw: false,
         forceSave: true
