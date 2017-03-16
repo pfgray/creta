@@ -6,11 +6,13 @@ import { Link } from 'react-router';
 
 export default (props) => (
   <div className='panel dash-box'>
-    {props.link ? (
-      <Link to={props.link}><div className='title'>{props.title}</div></Link>
-    ) : (
-      <div className='title'>{props.title}</div>
-    )}
-    {props.children}
+    <div className='title'>
+      {props.link ? (
+        <Link to={props.link}>{props.title}</Link>
+      ) : props.title}
+    </div>
+    <div className='dash-box-body'>
+      {props.children}
+    </div>
   </div>
 );

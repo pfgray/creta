@@ -54,18 +54,18 @@ div {
 }
 
 .panel {
-
-  .title {
-    font-family: @font-main;
-    text-transform: uppercase;
-    font-weight: 700;
-    margin-bottom: 0.5em;
-  }
-
   border: 1px solid @color-panel-border;
   border-radius: 2px;
   background-color: white;
   padding: 1em;
+  box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.2);
+
+  .title {
+    font-family: @font-main;
+    text-transform: uppercase;
+    margin-bottom: 0.5em;
+    font-size: 1.5em;
+  }
 }
 
 .btn {
@@ -160,7 +160,7 @@ table.info-table {
 
   thead {
     tr {
-      border-bottom: 1px solid @color-primary;
+      // border-bottom: 1px solid @color-primary;
     }
     th {
       color: #999;

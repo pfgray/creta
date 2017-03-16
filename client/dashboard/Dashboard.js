@@ -43,13 +43,8 @@ class Dashboard extends React.Component {
     setTimeout(cb, 500);
   }
   render() {
-    const appsTitle = (<div><i className="fa fa-cubes" aria-hidden="true"></i>Apps</div>);
-    const repositoresTitle = (
-      <div>
-        <i className="fa fa-database" aria-hidden="true"></i>
-        <Link to='/repos'>Repositories</Link>
-      </div>
-    );
+    const appsTitle = (<div>Apps</div>);
+    const repositoresTitle = <Link to='/repos'>Repositories</Link>;
     return this.props.apps ? (
       <Grid className='dash'>
         <Row>
