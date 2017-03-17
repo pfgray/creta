@@ -11,6 +11,7 @@ import { fetchDashboard } from './DashboardActions';
 import AppList from './AppList.tsx';
 import PeerList from './PeerList.tsx';
 import StorefrontList from './StorefrontList.tsx';
+import Loadable from '../ui/Loadable';
 
 const mapStateToProps = (state) => {
   return state.dashboard;
@@ -45,29 +46,34 @@ class Dashboard extends React.Component {
   render() {
     const appsTitle = (<div>Apps</div>);
     const repositoresTitle = <Link to='/repos'>Repositories</Link>;
-    return this.props.apps ? (
-      <Grid className='dash'>
-        <Row>
-          <Col lg={6} md={12}>
-            <Dashbox title={appsTitle}>
-              <AppList apps={this.props.apps}/>
-            </Dashbox>
-          </Col>
-          <Col lg={6} md={12}>
-            <Dashbox title={repositoresTitle}>
-              <PeerList peers={this.props.peers}/>
-            </Dashbox>
-          </Col>
-        </Row>
-        <Row>
-          <Col lg={12}>
-            <Dashbox title='Storefronts' link='/storefronts'>
-              <StorefrontList storefronts={this.props.storefronts}/>
-            </Dashbox>
-          </Col>
-        </Row>
-      </Grid>
-    ) : <span>loading...</span>;
+    return (
+      <Loadable
+        loading={!this.props.apps}
+        className="main-loader"
+        content={() => (
+          <Grid className='dash'>
+            <Row>
+              <Col lg={6} md={12}>
+                <Dashbox title={appsTitle}>
+                  <AppList apps={this.props.apps}/>
+                </Dashbox>
+              </Col>
+              <Col lg={6} md={12}>
+                <Dashbox title={repositoresTitle}>
+                  <PeerList peers={this.props.peers}/>
+                </Dashbox>
+              </Col>
+            </Row>
+            <Row>
+              <Col lg={12}>
+                <Dashbox title='Storefronts' link='/storefronts'>
+                  <StorefrontList storefronts={this.props.storefronts}/>
+                </Dashbox>
+              </Col>
+            </Row>
+          </Grid>
+        )} />
+    );
   }
 }
 
