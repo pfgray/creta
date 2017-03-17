@@ -20,7 +20,7 @@ accepts@~1.3.3:
     mime-types "~2.1.11"
     negotiator "0.6.1"
 
-acorn@^3.0.0, acorn@^3.1.0:
+acorn@^3.0.0:
   version "3.3.0"
   resolved "https://learningobjects.jfrog.io/learningobjects/api/npm/npm-virtual/acorn/-/acorn-3.3.0.tgz#45e37fb39e8da3f25baee3ff5369e2bb5f22017a"
 
@@ -167,10 +167,6 @@ assert@^1.1.1:
   resolved "https://learningobjects.jfrog.io/learningobjects/api/npm/npm-virtual/assert/-/assert-1.4.1.tgz#99912d591836b5a6f5b345c0f07eefc08fc65d91"
   dependencies:
     util "0.10.3"
-
-ast-types@0.9.5:
-  version "0.9.5"
-  resolved "https://learningobjects.jfrog.io/learningobjects/api/npm/npm-virtual/ast-types/-/ast-types-0.9.5.tgz#1a660a09945dbceb1f9c9cbb715002617424e04a"
 
 async-each@^1.0.0:
   version "1.0.1"
@@ -845,7 +841,7 @@ babel-runtime@^6.18.0, babel-runtime@^6.22.0, babel-runtime@^6.3.19:
     core-js "^2.4.0"
     regenerator-runtime "^0.10.0"
 
-babel-template@^6.22.0, babel-template@^6.23.0:
+babel-template@^6.22.0, babel-template@^6.23.0, babel-template@^6.7.0:
   version "6.23.0"
   resolved "https://learningobjects.jfrog.io/learningobjects/api/npm/npm-virtual/babel-template/-/babel-template-6.23.0.tgz#04d4f270adbb3aa704a8143ae26faa529238e638"
   dependencies:
@@ -885,10 +881,6 @@ babylon@^6.11.0, babylon@^6.15.0:
 balanced-match@^0.4.1, balanced-match@^0.4.2:
   version "0.4.2"
   resolved "https://learningobjects.jfrog.io/learningobjects/api/npm/npm-virtual/balanced-match/-/balanced-match-0.4.2.tgz#cb3f3e3c732dc0f01ee70b403f302e61d7709838"
-
-base62@^1.1.0:
-  version "1.1.2"
-  resolved "https://learningobjects.jfrog.io/learningobjects/api/npm/npm-virtual/base62/-/base62-1.1.2.tgz#22ced6a49913565bc0b8d9a11563a465c084124c"
 
 base64-js@^1.0.2:
   version "1.2.0"
@@ -1196,7 +1188,7 @@ commander@2.1.0:
   version "2.1.0"
   resolved "https://learningobjects.jfrog.io/learningobjects/api/npm/npm-virtual/commander/-/commander-2.1.0.tgz#d121bbae860d9992a3d517ba96f56588e47c6781"
 
-commander@^2.5.0, commander@^2.9.0:
+commander@^2.9.0:
   version "2.9.0"
   resolved "https://learningobjects.jfrog.io/learningobjects/api/npm/npm-virtual/commander/-/commander-2.9.0.tgz#9c99094176e12240cb22d6c5146098400fe0f7d4"
   dependencies:
@@ -1205,20 +1197,6 @@ commander@^2.5.0, commander@^2.9.0:
 commondir@^1.0.1:
   version "1.0.1"
   resolved "https://learningobjects.jfrog.io/learningobjects/api/npm/npm-virtual/commondir/-/commondir-1.0.1.tgz#ddd800da0c66127393cca5950ea968a3aaf1253b"
-
-commoner@^0.10.1:
-  version "0.10.8"
-  resolved "https://learningobjects.jfrog.io/learningobjects/api/npm/npm-virtual/commoner/-/commoner-0.10.8.tgz#34fc3672cd24393e8bb47e70caa0293811f4f2c5"
-  dependencies:
-    commander "^2.5.0"
-    detective "^4.3.1"
-    glob "^5.0.15"
-    graceful-fs "^4.1.2"
-    iconv-lite "^0.4.5"
-    mkdirp "^0.5.0"
-    private "^0.1.6"
-    q "^1.1.2"
-    recast "^0.11.17"
 
 component-emitter@~1.2.0:
   version "1.2.1"
@@ -1601,13 +1579,6 @@ detect-indent@^4.0.0:
   dependencies:
     repeating "^2.0.0"
 
-detective@^4.3.1:
-  version "4.3.2"
-  resolved "https://learningobjects.jfrog.io/learningobjects/api/npm/npm-virtual/detective/-/detective-4.3.2.tgz#77697e2e7947ac3fe7c8e26a6d6f115235afa91c"
-  dependencies:
-    acorn "^3.1.0"
-    defined "^1.0.0"
-
 dom-helpers@^2.4.0:
   version "2.4.0"
   resolved "https://learningobjects.jfrog.io/learningobjects/api/npm/npm-virtual/dom-helpers/-/dom-helpers-2.4.0.tgz#9bb4b245f637367b1fa670274272aa28fe06c367"
@@ -1615,6 +1586,10 @@ dom-helpers@^2.4.0:
 dom-helpers@^3.2.0:
   version "3.2.1"
   resolved "https://learningobjects.jfrog.io/learningobjects/api/npm/npm-virtual/dom-helpers/-/dom-helpers-3.2.1.tgz#3203e07fed217bd1f424b019735582fc37b2825a"
+
+dom-walk@^0.1.0:
+  version "0.1.1"
+  resolved "https://learningobjects.jfrog.io/learningobjects/api/npm/npm-virtual/dom-walk/-/dom-walk-0.1.1.tgz#672226dc74c8f799ad35307df936aba11acd6018"
 
 domain-browser@^1.1.1:
   version "1.1.7"
@@ -1676,18 +1651,17 @@ enhanced-resolve@^0.9.0, enhanced-resolve@~0.9.0:
     memory-fs "^0.2.0"
     tapable "^0.1.8"
 
-envify@^3.0.0:
-  version "3.4.1"
-  resolved "https://learningobjects.jfrog.io/learningobjects/api/npm/npm-virtual/envify/-/envify-3.4.1.tgz#d7122329e8df1688ba771b12501917c9ce5cbce8"
-  dependencies:
-    jstransform "^11.0.3"
-    through "~2.3.4"
-
 errno@^0.1.1, errno@^0.1.3:
   version "0.1.4"
   resolved "https://learningobjects.jfrog.io/learningobjects/api/npm/npm-virtual/errno/-/errno-0.1.4.tgz#b896e23a9e5e8ba33871fc996abd3635fc9a1c7d"
   dependencies:
     prr "~0.0.0"
+
+error-stack-parser@^1.3.6:
+  version "1.3.6"
+  resolved "https://learningobjects.jfrog.io/learningobjects/api/npm/npm-virtual/error-stack-parser/-/error-stack-parser-1.3.6.tgz#e0e73b93e417138d1cd7c0b746b1a4a14854c292"
+  dependencies:
+    stackframe "^0.3.1"
 
 errorhandler@~1.0.0:
   version "1.0.2"
@@ -1709,17 +1683,9 @@ escape-string-regexp@^1.0.2:
   version "1.0.5"
   resolved "https://learningobjects.jfrog.io/learningobjects/api/npm/npm-virtual/escape-string-regexp/-/escape-string-regexp-1.0.5.tgz#1b61c0562190a8dff6ae3bb2cf0200ca130b86d4"
 
-esprima-fb@^15001.1.0-dev-harmony-fb:
-  version "15001.1.0-dev-harmony-fb"
-  resolved "https://learningobjects.jfrog.io/learningobjects/api/npm/npm-virtual/esprima-fb/-/esprima-fb-15001.1.0-dev-harmony-fb.tgz#30a947303c6b8d5e955bee2b99b1d233206a6901"
-
 esprima@^2.6.0:
   version "2.7.3"
   resolved "https://learningobjects.jfrog.io/learningobjects/api/npm/npm-virtual/esprima/-/esprima-2.7.3.tgz#96e3b70d5779f6ad49cd032673d1c312767ba581"
-
-esprima@~3.1.0:
-  version "3.1.3"
-  resolved "https://learningobjects.jfrog.io/learningobjects/api/npm/npm-virtual/esprima/-/esprima-3.1.3.tgz#fdca51cee6133895e3c88d535ce49dbff62a4633"
 
 esutils@^2.0.0, esutils@^2.0.2:
   version "2.0.2"
@@ -1869,17 +1835,7 @@ faye-websocket@~0.11.0:
   dependencies:
     websocket-driver ">=0.5.1"
 
-fbjs@^0.6.1:
-  version "0.6.1"
-  resolved "https://learningobjects.jfrog.io/learningobjects/api/npm/npm-virtual/fbjs/-/fbjs-0.6.1.tgz#9636b7705f5ba9684d44b72f78321254afc860f7"
-  dependencies:
-    core-js "^1.0.0"
-    loose-envify "^1.0.0"
-    promise "^7.0.3"
-    ua-parser-js "^0.7.9"
-    whatwg-fetch "^0.9.0"
-
-fbjs@^0.8.4:
+fbjs@^0.8.1, fbjs@^0.8.4:
   version "0.8.9"
   resolved "https://learningobjects.jfrog.io/learningobjects/api/npm/npm-virtual/fbjs/-/fbjs-0.8.9.tgz#180247fbd347dcc9004517b904f865400a0c8f14"
   dependencies:
@@ -2169,16 +2125,6 @@ glob@^4.3.1:
     minimatch "^2.0.1"
     once "^1.3.0"
 
-glob@^5.0.15, glob@~5.0.0:
-  version "5.0.15"
-  resolved "https://learningobjects.jfrog.io/learningobjects/api/npm/npm-virtual/glob/-/glob-5.0.15.tgz#1bc936b9e02f4a603fcc222ecf7633d30b8b93b1"
-  dependencies:
-    inflight "^1.0.4"
-    inherits "2"
-    minimatch "2 || 3"
-    once "^1.3.0"
-    path-is-absolute "^1.0.0"
-
 glob@^7.0.5:
   version "7.1.1"
   resolved "https://learningobjects.jfrog.io/learningobjects/api/npm/npm-virtual/glob/-/glob-7.1.1.tgz#805211df04faaf1c63a3600306cdf5ade50b2ec8"
@@ -2198,6 +2144,16 @@ glob@~3.1.21:
     inherits "1"
     minimatch "~0.2.11"
 
+glob@~5.0.0:
+  version "5.0.15"
+  resolved "https://learningobjects.jfrog.io/learningobjects/api/npm/npm-virtual/glob/-/glob-5.0.15.tgz#1bc936b9e02f4a603fcc222ecf7633d30b8b93b1"
+  dependencies:
+    inflight "^1.0.4"
+    inherits "2"
+    minimatch "2 || 3"
+    once "^1.3.0"
+    path-is-absolute "^1.0.0"
+
 global-modules@^0.2.3:
   version "0.2.3"
   resolved "https://learningobjects.jfrog.io/learningobjects/api/npm/npm-virtual/global-modules/-/global-modules-0.2.3.tgz#ea5a3bed42c6d6ce995a4f8a1269b5dae223828d"
@@ -2213,6 +2169,13 @@ global-prefix@^0.1.4:
     ini "^1.3.4"
     is-windows "^0.2.0"
     which "^1.2.12"
+
+global@^4.3.0:
+  version "4.3.1"
+  resolved "https://learningobjects.jfrog.io/learningobjects/api/npm/npm-virtual/global/-/global-4.3.1.tgz#5f757908c7cbabce54f386ae440e11e26b7916df"
+  dependencies:
+    min-document "^2.19.0"
+    process "~0.5.1"
 
 globals@^9.0.0:
   version "9.16.0"
@@ -2393,11 +2356,20 @@ history@^1.17.0:
     query-string "^3.0.0"
     warning "^2.0.0"
 
+history@^3.0.0:
+  version "3.3.0"
+  resolved "https://learningobjects.jfrog.io/learningobjects/api/npm/npm-virtual/history/-/history-3.3.0.tgz#fcedcce8f12975371545d735461033579a6dae9c"
+  dependencies:
+    invariant "^2.2.1"
+    loose-envify "^1.2.0"
+    query-string "^4.2.2"
+    warning "^3.0.0"
+
 hoek@2.x.x:
   version "2.16.3"
   resolved "https://learningobjects.jfrog.io/learningobjects/api/npm/npm-virtual/hoek/-/hoek-2.16.3.tgz#20bb7403d3cea398e91dc4710a8ff1b8274a25ed"
 
-hoist-non-react-statics@^1.0.3, hoist-non-react-statics@^1.0.5:
+hoist-non-react-statics@^1.0.3, hoist-non-react-statics@^1.0.5, hoist-non-react-statics@^1.2.0:
   version "1.2.0"
   resolved "https://learningobjects.jfrog.io/learningobjects/api/npm/npm-virtual/hoist-non-react-statics/-/hoist-non-react-statics-1.2.0.tgz#aa448cf0986d55cc40773b17174b7dd066cb7cfb"
 
@@ -2465,7 +2437,7 @@ https-browserify@0.0.1:
   version "0.0.1"
   resolved "https://learningobjects.jfrog.io/learningobjects/api/npm/npm-virtual/https-browserify/-/https-browserify-0.0.1.tgz#3f91365cabe60b77ed0ebba24b454e3e09d95a82"
 
-iconv-lite@0.4.15, iconv-lite@^0.4.5, iconv-lite@~0.4.13:
+iconv-lite@0.4.15, iconv-lite@~0.4.13:
   version "0.4.15"
   resolved "https://learningobjects.jfrog.io/learningobjects/api/npm/npm-virtual/iconv-lite/-/iconv-lite-0.4.15.tgz#fe265a218ac6a57cfe854927e9d04c19825eddeb"
 
@@ -2532,7 +2504,7 @@ interpret@^1.0.0:
   version "1.0.1"
   resolved "https://learningobjects.jfrog.io/learningobjects/api/npm/npm-virtual/interpret/-/interpret-1.0.1.tgz#d579fb7f693b858004947af39fa0db49f795602c"
 
-invariant@^2.0.0, invariant@^2.1.0, invariant@^2.1.2, invariant@^2.2.0:
+invariant@^2.0.0, invariant@^2.1.0, invariant@^2.1.2, invariant@^2.2.0, invariant@^2.2.1:
   version "2.2.2"
   resolved "https://learningobjects.jfrog.io/learningobjects/api/npm/npm-virtual/invariant/-/invariant-2.2.2.tgz#9e1f56ac0acdb6bf303306f338be3b204ae60360"
   dependencies:
@@ -2813,16 +2785,6 @@ jsprim@^1.2.2:
     json-schema "0.2.3"
     verror "1.3.6"
 
-jstransform@^11.0.3:
-  version "11.0.3"
-  resolved "https://learningobjects.jfrog.io/learningobjects/api/npm/npm-virtual/jstransform/-/jstransform-11.0.3.tgz#09a78993e0ae4d4ef4487f6155a91f6190cb4223"
-  dependencies:
-    base62 "^1.1.0"
-    commoner "^0.10.1"
-    esprima-fb "^15001.1.0-dev-harmony-fb"
-    object-assign "^2.0.0"
-    source-map "^0.4.2"
-
 keycode@^2.1.0:
   version "2.1.8"
   resolved "https://learningobjects.jfrog.io/learningobjects/api/npm/npm-virtual/keycode/-/keycode-2.1.8.tgz#94d2b7098215eff0e8f9a8931d5a59076c4532fb"
@@ -3073,7 +3035,7 @@ lodash.words@^3.0.0:
   dependencies:
     lodash._root "^3.0.0"
 
-lodash@^4.0.0, lodash@^4.17.2, lodash@^4.2.0, lodash@^4.2.1:
+lodash@^4.0.0, lodash@^4.17.2, lodash@^4.2.0, lodash@^4.2.1, lodash@^4.6.1:
   version "4.17.4"
   resolved "https://learningobjects.jfrog.io/learningobjects/api/npm/npm-virtual/lodash/-/lodash-4.17.4.tgz#78203a4d1c328ae1d86dca6460e369b57f4055ae"
 
@@ -3089,7 +3051,7 @@ longest@^1.0.1:
   version "1.0.1"
   resolved "https://learningobjects.jfrog.io/learningobjects/api/npm/npm-virtual/longest/-/longest-1.0.1.tgz#30a0b2da38f73770e8294a0d22e6625ed77d0097"
 
-loose-envify@^1.0.0, loose-envify@^1.1.0:
+loose-envify@^1.0.0, loose-envify@^1.1.0, loose-envify@^1.2.0:
   version "1.3.1"
   resolved "https://learningobjects.jfrog.io/learningobjects/api/npm/npm-virtual/loose-envify/-/loose-envify-1.3.1.tgz#d1a8ad33fa9ce0e713d65fdd0ac8b748d478c848"
   dependencies:
@@ -3210,6 +3172,12 @@ mime-types@~1.0.0, mime-types@~1.0.1:
 mime@1.3.4, mime@1.3.x, mime@^1.2.11, mime@^1.3.4:
   version "1.3.4"
   resolved "https://learningobjects.jfrog.io/learningobjects/api/npm/npm-virtual/mime/-/mime-1.3.4.tgz#115f9e3b6b3daf2959983cb38f149a2d40eb5d53"
+
+min-document@^2.19.0:
+  version "2.19.0"
+  resolved "https://learningobjects.jfrog.io/learningobjects/api/npm/npm-virtual/min-document/-/min-document-2.19.0.tgz#7bd282e3f5842ed295bb748cdd9f1ffa2c824685"
+  dependencies:
+    dom-walk "^0.1.0"
 
 "minimatch@2 || 3", minimatch@>=0.2.4, minimatch@^3.0.0, minimatch@^3.0.2:
   version "3.0.3"
@@ -3504,7 +3472,7 @@ oauth@0.9.x:
   version "0.9.15"
   resolved "https://learningobjects.jfrog.io/learningobjects/api/npm/npm-virtual/oauth/-/oauth-0.9.15.tgz#bd1fefaf686c96b75475aed5196412ff60cfb9c1"
 
-object-assign@4.0.1, object-assign@^4.0.1:
+object-assign@4.0.1:
   version "4.0.1"
   resolved "https://learningobjects.jfrog.io/learningobjects/api/npm/npm-virtual/object-assign/-/object-assign-4.0.1.tgz#99504456c3598b5cad4fc59c26e8a9bb107fe0bd"
 
@@ -3516,7 +3484,7 @@ object-assign@^3.0.0:
   version "3.0.0"
   resolved "https://learningobjects.jfrog.io/learningobjects/api/npm/npm-virtual/object-assign/-/object-assign-3.0.0.tgz#9bedd5ca0897949bca47e7ff408062d549f587f2"
 
-object-assign@^4.1.0:
+object-assign@^4.0.1, object-assign@^4.1.0:
   version "4.1.1"
   resolved "https://learningobjects.jfrog.io/learningobjects/api/npm/npm-virtual/object-assign/-/object-assign-4.1.1.tgz#2109adc7965887cfc05cbbd442cac8bfbb360863"
 
@@ -3986,7 +3954,7 @@ pretty-hrtime@^1.0.0:
   version "1.0.3"
   resolved "https://learningobjects.jfrog.io/learningobjects/api/npm/npm-virtual/pretty-hrtime/-/pretty-hrtime-1.0.3.tgz#b7e3ea42435a4c9b2759d99e0f201eb195802ee1"
 
-private@^0.1.6, private@~0.1.5:
+private@^0.1.6:
   version "0.1.7"
   resolved "https://learningobjects.jfrog.io/learningobjects/api/npm/npm-virtual/private/-/private-0.1.7.tgz#68ce5e8a1ef0a23bb570cc28537b5332aba63ef1"
 
@@ -3998,7 +3966,11 @@ process@^0.11.0:
   version "0.11.9"
   resolved "https://learningobjects.jfrog.io/learningobjects/api/npm/npm-virtual/process/-/process-0.11.9.tgz#7bd5ad21aa6253e7da8682264f1e11d11c0318c1"
 
-promise@^7.0.3, promise@^7.1.1:
+process@~0.5.1:
+  version "0.5.2"
+  resolved "https://learningobjects.jfrog.io/learningobjects/api/npm/npm-virtual/process/-/process-0.5.2.tgz#1638d8a8e34c2f440a91db95ab9aeb677fc185cf"
+
+promise@^7.1.1:
   version "7.1.1"
   resolved "https://learningobjects.jfrog.io/learningobjects/api/npm/npm-virtual/promise/-/promise-7.1.1.tgz#489654c692616b8aa55b0724fa809bb7db49c5bf"
   dependencies:
@@ -4055,7 +4027,7 @@ query-string@^3.0.0:
   dependencies:
     strict-uri-encode "^1.0.0"
 
-query-string@^4.1.0:
+query-string@^4.1.0, query-string@^4.2.2:
   version "4.3.2"
   resolved "https://learningobjects.jfrog.io/learningobjects/api/npm/npm-virtual/query-string/-/query-string-4.3.2.tgz#ec0fd765f58a50031a3968c2431386f8947a5cdd"
   dependencies:
@@ -4139,19 +4111,27 @@ react-css-transition-replace@^1.1.0:
   dependencies:
     react-addons-css-transition-group "^15.0.0"
 
-react-dom@^0.14.6:
-  version "0.14.8"
-  resolved "https://learningobjects.jfrog.io/learningobjects/api/npm/npm-virtual/react-dom/-/react-dom-0.14.8.tgz#0f1c547514263f771bd31814a739e5306575069e"
+react-deep-force-update@^2.0.1:
+  version "2.0.1"
+  resolved "https://learningobjects.jfrog.io/learningobjects/api/npm/npm-virtual/react-deep-force-update/-/react-deep-force-update-2.0.1.tgz#4f7f6c12c3e7de42f345992a3c518236fa1ecad3"
 
-react-hot-api@^0.4.5:
-  version "0.4.7"
-  resolved "https://learningobjects.jfrog.io/learningobjects/api/npm/npm-virtual/react-hot-api/-/react-hot-api-0.4.7.tgz#a7e22a56d252e11abd9366b61264cf4492c58171"
-
-react-hot-loader@^1.3.0:
-  version "1.3.1"
-  resolved "https://learningobjects.jfrog.io/learningobjects/api/npm/npm-virtual/react-hot-loader/-/react-hot-loader-1.3.1.tgz#c95647ae78b73dfceff6ec71ffcb04182ff6daf9"
+react-dom@15.4.2:
+  version "15.4.2"
+  resolved "https://learningobjects.jfrog.io/learningobjects/api/npm/npm-virtual/react-dom/-/react-dom-15.4.2.tgz#015363f05b0a1fd52ae9efdd3a0060d90695208f"
   dependencies:
-    react-hot-api "^0.4.5"
+    fbjs "^0.8.1"
+    loose-envify "^1.1.0"
+    object-assign "^4.1.0"
+
+react-hot-loader@next:
+  version "3.0.0-beta.6"
+  resolved "https://learningobjects.jfrog.io/learningobjects/api/npm/npm-virtual/react-hot-loader/-/react-hot-loader-3.0.0-beta.6.tgz#463fac0bfc8b63a8385258af20c91636abce75f4"
+  dependencies:
+    babel-template "^6.7.0"
+    global "^4.3.0"
+    react-deep-force-update "^2.0.1"
+    react-proxy "^3.0.0-alpha.0"
+    redbox-react "^1.2.5"
     source-map "^0.4.4"
 
 react-infinite@^0.10.0:
@@ -4189,6 +4169,12 @@ react-prop-types@^0.4.0:
   dependencies:
     warning "^3.0.0"
 
+react-proxy@^3.0.0-alpha.0:
+  version "3.0.0-alpha.1"
+  resolved "https://learningobjects.jfrog.io/learningobjects/api/npm/npm-virtual/react-proxy/-/react-proxy-3.0.0-alpha.1.tgz#4400426bcfa80caa6724c7755695315209fa4b07"
+  dependencies:
+    lodash "^4.6.1"
+
 react-redux@^4.1.2:
   version "4.4.6"
   resolved "https://learningobjects.jfrog.io/learningobjects/api/npm/npm-virtual/react-redux/-/react-redux-4.4.6.tgz#4b9d32985307a11096a2dd61561980044fcc6209"
@@ -4198,23 +4184,27 @@ react-redux@^4.1.2:
     lodash "^4.2.0"
     loose-envify "^1.1.0"
 
-react-router-redux@^2.1.0:
-  version "2.1.0"
-  resolved "https://learningobjects.jfrog.io/learningobjects/api/npm/npm-virtual/react-router-redux/-/react-router-redux-2.1.0.tgz#ac1e822ae0e7ecddd9499c5adde32dcbe5e67196"
+react-router-redux@4.0.7:
+  version "4.0.7"
+  resolved "https://learningobjects.jfrog.io/learningobjects/api/npm/npm-virtual/react-router-redux/-/react-router-redux-4.0.7.tgz#9b1fde4e70106c50f47214e12bdd888cfb96e2a6"
 
-react-router@^1.0.3:
-  version "1.0.3"
-  resolved "https://learningobjects.jfrog.io/learningobjects/api/npm/npm-virtual/react-router/-/react-router-1.0.3.tgz#980ecaa055b86e47c86548c232ae05a88a41f0b7"
+react-router@3.0.2:
+  version "3.0.2"
+  resolved "https://learningobjects.jfrog.io/learningobjects/api/npm/npm-virtual/react-router/-/react-router-3.0.2.tgz#5a19156678810e01d81901f9c0fef63284b8a514"
   dependencies:
-    invariant "^2.0.0"
-    warning "^2.0.0"
+    history "^3.0.0"
+    hoist-non-react-statics "^1.2.0"
+    invariant "^2.2.1"
+    loose-envify "^1.2.0"
+    warning "^3.0.0"
 
-react@^0.14.6:
-  version "0.14.8"
-  resolved "https://learningobjects.jfrog.io/learningobjects/api/npm/npm-virtual/react/-/react-0.14.8.tgz#078dfa454d4745bcc54a9726311c2bf272c23684"
+react@15.4.2:
+  version "15.4.2"
+  resolved "https://learningobjects.jfrog.io/learningobjects/api/npm/npm-virtual/react/-/react-15.4.2.tgz#41f7991b26185392ba9bae96c8889e7e018397ef"
   dependencies:
-    envify "^3.0.0"
-    fbjs "^0.6.1"
+    fbjs "^0.8.4"
+    loose-envify "^1.1.0"
+    object-assign "^4.1.0"
 
 readable-stream@1.0.27-1:
   version "1.0.27-1"
@@ -4270,20 +4260,18 @@ readdirp@~0.2.3:
   dependencies:
     minimatch ">=0.2.4"
 
-recast@^0.11.17:
-  version "0.11.22"
-  resolved "https://learningobjects.jfrog.io/learningobjects/api/npm/npm-virtual/recast/-/recast-0.11.22.tgz#dedeb18fb001a2bbc6ac34475fda53dfe3d47dfa"
-  dependencies:
-    ast-types "0.9.5"
-    esprima "~3.1.0"
-    private "~0.1.5"
-    source-map "~0.5.0"
-
 rechoir@^0.6.2:
   version "0.6.2"
   resolved "https://learningobjects.jfrog.io/learningobjects/api/npm/npm-virtual/rechoir/-/rechoir-0.6.2.tgz#85204b54dba82d5742e28c96756ef43af50e3384"
   dependencies:
     resolve "^1.1.6"
+
+redbox-react@^1.2.5:
+  version "1.3.4"
+  resolved "https://learningobjects.jfrog.io/learningobjects/api/npm/npm-virtual/redbox-react/-/redbox-react-1.3.4.tgz#3d882bb62cc7c8f6256279d12f05c6a5a96d24c6"
+  dependencies:
+    error-stack-parser "^1.3.6"
+    object-assign "^4.0.1"
 
 reduce-component@1.0.1:
   version "1.0.1"
@@ -4649,13 +4637,13 @@ source-map@0.5.4:
   version "0.5.4"
   resolved "https://learningobjects.jfrog.io/learningobjects/api/npm/npm-virtual/source-map/-/source-map-0.5.4.tgz#2beb18a2ab8abd88320a72178c671f0e4c5def28"
 
-source-map@^0.4.2, source-map@^0.4.4, source-map@~0.4.1:
+source-map@^0.4.4, source-map@~0.4.1:
   version "0.4.4"
   resolved "https://learningobjects.jfrog.io/learningobjects/api/npm/npm-virtual/source-map/-/source-map-0.4.4.tgz#eba4f5da9c0dc999de68032d8b4f76173652036b"
   dependencies:
     amdefine ">=0.0.4"
 
-source-map@^0.5.0, source-map@^0.5.3, source-map@^0.5.6, source-map@~0.5.0, source-map@~0.5.1, source-map@~0.5.3:
+source-map@^0.5.0, source-map@^0.5.3, source-map@^0.5.6, source-map@~0.5.1, source-map@~0.5.3:
   version "0.5.6"
   resolved "https://learningobjects.jfrog.io/learningobjects/api/npm/npm-virtual/source-map/-/source-map-0.5.6.tgz#75ce38f52bf0733c5a7f0c118d81334a2bb5f412"
 
@@ -4695,6 +4683,10 @@ stable@~0.1.3, stable@~0.1.5:
 stack-trace@0.0.9:
   version "0.0.9"
   resolved "https://learningobjects.jfrog.io/learningobjects/api/npm/npm-virtual/stack-trace/-/stack-trace-0.0.9.tgz#a8f6eaeca90674c333e7c43953f275b451510695"
+
+stackframe@^0.3.1:
+  version "0.3.1"
+  resolved "https://learningobjects.jfrog.io/learningobjects/api/npm/npm-virtual/stackframe/-/stackframe-0.3.1.tgz#33aa84f1177a5548c8935533cbfeb3420975f5a4"
 
 "statuses@>= 1.3.1 < 2", statuses@~1.3.1:
   version "1.3.1"
@@ -4863,7 +4855,7 @@ through2@^2.0.0:
     readable-stream "^2.1.5"
     xtend "~4.0.1"
 
-through@2, "through@>=2.3.4 <2.4.0-0", through@~2.3, through@~2.3.1, through@~2.3.4:
+through@2, "through@>=2.3.4 <2.4.0-0", through@~2.3, through@~2.3.1:
   version "2.3.8"
   resolved "https://learningobjects.jfrog.io/learningobjects/api/npm/npm-virtual/through/-/through-2.3.8.tgz#0dd4c9ffaabc357960b1b724115d7e0e86a2e1f5"
 
@@ -5259,10 +5251,6 @@ websocket-extensions@>=0.1.1:
 whatwg-fetch@>=0.10.0:
   version "2.0.2"
   resolved "https://learningobjects.jfrog.io/learningobjects/api/npm/npm-virtual/whatwg-fetch/-/whatwg-fetch-2.0.2.tgz#fe294d1d89e36c5be8b3195057f2e4bc74fc980e"
-
-whatwg-fetch@^0.9.0:
-  version "0.9.0"
-  resolved "https://learningobjects.jfrog.io/learningobjects/api/npm/npm-virtual/whatwg-fetch/-/whatwg-fetch-0.9.0.tgz#0e3684c6cb9995b43efc9df03e4c365d95fd9cc0"
 
 whet.extend@~0.9.9:
   version "0.9.9"

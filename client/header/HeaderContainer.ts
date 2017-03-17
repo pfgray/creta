@@ -3,7 +3,7 @@
  */
 import * as React from 'react';
 import { connect } from 'react-redux';
-import Header from './Header.tsx';
+import Header from './Header';
 
 class HeaderContainer extends React.Component<any, any> {
   constructor(props){
@@ -15,10 +15,13 @@ class HeaderContainer extends React.Component<any, any> {
 }
 
 export default connect(
-  state => ({
-    currentUser: state.currentUser,
-    pathname: state.routing.location.pathname
-  }),
+  state => {
+    console.log("####got: ", state.routing);
+    return ({
+      currentUser: state.currentUser,
+      pathname: state.routing.locationBeforeTransitions.pathname
+    })
+  },
   dispatch => ({
     dispatch: dispatch
   })

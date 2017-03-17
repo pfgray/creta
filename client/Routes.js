@@ -1,10 +1,9 @@
 import React from 'react';
-import { Router, Route, IndexRoute } from 'react-router';
-import createBrowserHistory from 'history/lib/createBrowserHistory';
-import { createStore, applyMiddleware, compose } from 'redux';
+import { Router, Route, IndexRoute, browserHistory } from 'react-router';
+import { createStore, applyMiddleware, compose, combineReducers } from 'redux';
 import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
-import { syncHistory } from 'react-router-redux';
+import { syncHistoryWithStore, routerReducer, routerMiddleware } from 'react-router-redux';
 
 import reducer from './store/casaReducer';
 import CasaApp from './CasaApp';
@@ -22,18 +21,21 @@ import EditStorefront from './storefronts/edit/EditStorefrontFormWrapper.js';
 import LtiStorefront from './lti/LtiStorefrontContainer';
 import createLogger from 'redux-logger';
 
-const browserHistory = createBrowserHistory();
-const reduxRouterMiddleware = syncHistory(browserHistory);
-const logger = createLogger();
+
 const finalCreateStore = compose(
-    applyMiddleware(thunk, reduxRouterMiddleware, logger),
+    applyMiddleware(thunk, createLogger(), routerMiddleware(browserHistory)),
     window.devToolsExtension ? window.devToolsExtension() : f => f
 )(createStore);
-const store = finalCreateStore(reducer);
+const store = finalCreateStore(combineReducers({
+  ...reducer,
+  routing: routerReducer
+}));
+
+const history = syncHistoryWithStore(browserHistory, store);
 
 const Routes = () => (
   <Provider store={store}>
-    <Router history={browserHistory}>
+    <Router history={history}>
       <Route path="/" component={CasaApp}>
         <IndexRoute component={Welcome}/>
         <Route path="/dashboard" component={Dashboard}/>

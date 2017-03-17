@@ -10,7 +10,7 @@ import editStorefrontReducer from '../storefronts/edit/editStorefrontReducer';
 import currentUserReducer from './currentUserReducer';
 import appStore from '../lti/appStore/appStoreReducer';
 
-export default combineReducers({
+export default {
   currentUser: currentUserReducer,
   dashboard,
   peers,
@@ -24,4 +24,4 @@ export default combineReducers({
     editPeer: editPeerReducer,
     editStorefront: editStorefrontReducer
   })
-});
+};

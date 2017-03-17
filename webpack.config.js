@@ -25,7 +25,6 @@ module.exports = {
     entry: {
       main: [
         'webpack-dev-server/client?http://localhost:9001/',
-        'webpack/hot/only-dev-server',
         PATHS.app + '/main.js'
       ]
     },
@@ -37,7 +36,7 @@ module.exports = {
     module: {
       loaders: [{
         test: /\.js$/,
-        loader: 'react-hot!babel?' + JSON.stringify({
+        loader: 'babel?' + JSON.stringify({
           plugins: ['transform-runtime'],
           presets: ['react', 'es2015', 'stage-1']
         }),
@@ -58,7 +57,7 @@ module.exports = {
         loader: "url?limit=8192"
       },{
         test: /\.tsx?$/,
-        loader: 'react-hot!babel?' + JSON.stringify({
+        loader: 'babel?' + JSON.stringify({
           plugins: ['transform-runtime'],
           presets: ['react', 'es2015', 'stage-1']
         }) + '!ts-loader',
@@ -70,7 +69,6 @@ module.exports = {
     plugins: [
       new webpack.NoErrorsPlugin(),
       new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /en$/),
-      new webpack.HotModuleReplacementPlugin(),
       new ExtractTextPlugin("styles.css")
     ]
 };
