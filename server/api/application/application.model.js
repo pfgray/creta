@@ -10,7 +10,7 @@ var peerModel = require('../peer/peer.model');
 var appModel = {
     getApplicationsForUser: function(userId){
       var db = model.getDatabase();
-      return Q.ninvoke(db, 'view', 'casa/applicationsByUser', {group: true, reduce: true})
+      return Q.ninvoke(db, 'view', 'casa/applicationsByUser', {group: true, reduce: true, limit:10})
         .then(resp => resp.toArray());
     },
     getApplicationsForStorefront: function(storefrontId){

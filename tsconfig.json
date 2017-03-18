@@ -38,6 +38,7 @@
     "./client/storefronts/StorefrontService.ts",
     "./client/ui/ColorService.ts",
     "./client/dashboard/AppList.tsx",
+    "./client/dashboard/AppSquare.tsx",
     "./client/dashboard/PeerList.tsx",
     "./client/dashboard/StorefrontList.tsx",
     "./client/header/Header.tsx",
